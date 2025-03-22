@@ -1,0 +1,1 @@
+﻿1. add config class including all strokes like email or connection string
