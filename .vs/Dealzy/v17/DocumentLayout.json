@@ -3,40 +3,72 @@
   "WorkspaceRootPath": "D:\\Dealzy\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{E94970D3-6F2B-4715-83E6-0DF620450778}|DealZy.Backend\\DealZy.Backend.csproj|d:\\dealzy\\dealzy.backend\\dealzy.backend.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{E94970D3-6F2B-4715-83E6-0DF620450778}|DealZy.Backend\\DealZy.Backend.csproj|solutionrelative:dealzy.backend\\dealzy.backend.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E94970D3-6F2B-4715-83E6-0DF620450778}|DealZy.Backend\\DealZy.Backend.csproj|d:\\dealzy\\dealzy.backend\\todo.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{E94970D3-6F2B-4715-83E6-0DF620450778}|DealZy.Backend\\DealZy.Backend.csproj|solutionrelative:dealzy.backend\\todo.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E94970D3-6F2B-4715-83E6-0DF620450778}|DealZy.Backend\\DealZy.Backend.csproj|d:\\dealzy\\dealzy.backend\\models\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E94970D3-6F2B-4715-83E6-0DF620450778}|DealZy.Backend\\DealZy.Backend.csproj|solutionrelative:dealzy.backend\\models\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{E94970D3-6F2B-4715-83E6-0DF620450778}|DealZy.Backend\\DealZy.Backend.csproj|d:\\dealzy\\dealzy.backend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E94970D3-6F2B-4715-83E6-0DF620450778}|DealZy.Backend\\DealZy.Backend.csproj|solutionrelative:dealzy.backend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Dealzy\\dealzy.frontend\\src\\HomePage.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:dealzy.frontend\\src\\HomePage.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+      "AbsoluteMoniker": "D:0:0:{E94970D3-6F2B-4715-83E6-0DF620450778}|DealZy.Backend\\DealZy.Backend.csproj|d:\\dealzy\\dealzy.backend\\models\\dto\\requests\\loginrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E94970D3-6F2B-4715-83E6-0DF620450778}|DealZy.Backend\\DealZy.Backend.csproj|solutionrelative:dealzy.backend\\models\\dto\\requests\\loginrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Dealzy\\dealzy.frontend\\src\\index.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:dealzy.frontend\\src\\index.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+      "AbsoluteMoniker": "D:0:0:{E94970D3-6F2B-4715-83E6-0DF620450778}|DealZy.Backend\\DealZy.Backend.csproj|d:\\dealzy\\dealzy.backend\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E94970D3-6F2B-4715-83E6-0DF620450778}|DealZy.Backend\\DealZy.Backend.csproj|solutionrelative:dealzy.backend\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Dealzy\\dealzy.frontend\\src\\App.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:dealzy.frontend\\src\\App.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+      "AbsoluteMoniker": "D:0:0:{E94970D3-6F2B-4715-83E6-0DF620450778}|DealZy.Backend\\DealZy.Backend.csproj|d:\\dealzy\\dealzy.backend\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E94970D3-6F2B-4715-83E6-0DF620450778}|DealZy.Backend\\DealZy.Backend.csproj|solutionrelative:dealzy.backend\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E94970D3-6F2B-4715-83E6-0DF620450778}|DealZy.Backend\\DealZy.Backend.csproj|d:\\dealzy\\dealzy.backend\\controllers\\adscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E94970D3-6F2B-4715-83E6-0DF620450778}|DealZy.Backend\\DealZy.Backend.csproj|solutionrelative:dealzy.backend\\controllers\\adscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E94970D3-6F2B-4715-83E6-0DF620450778}|DealZy.Backend\\DealZy.Backend.csproj|d:\\dealzy\\dealzy.backend\\models\\dto\\requests\\registerrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E94970D3-6F2B-4715-83E6-0DF620450778}|DealZy.Backend\\DealZy.Backend.csproj|solutionrelative:dealzy.backend\\models\\dto\\requests\\registerrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E94970D3-6F2B-4715-83E6-0DF620450778}|DealZy.Backend\\DealZy.Backend.csproj|d:\\dealzy\\dealzy.backend\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{E94970D3-6F2B-4715-83E6-0DF620450778}|DealZy.Backend\\DealZy.Backend.csproj|solutionrelative:dealzy.backend\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{E94970D3-6F2B-4715-83E6-0DF620450778}|DealZy.Backend\\DealZy.Backend.csproj|d:\\dealzy\\dealzy.backend\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{E94970D3-6F2B-4715-83E6-0DF620450778}|DealZy.Backend\\DealZy.Backend.csproj|solutionrelative:dealzy.backend\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{E94970D3-6F2B-4715-83E6-0DF620450778}|DealZy.Backend\\DealZy.Backend.csproj|d:\\dealzy\\dealzy.backend\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{E94970D3-6F2B-4715-83E6-0DF620450778}|DealZy.Backend\\DealZy.Backend.csproj|solutionrelative:dealzy.backend\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E94970D3-6F2B-4715-83E6-0DF620450778}|DealZy.Backend\\DealZy.Backend.csproj|d:\\dealzy\\dealzy.backend\\dealzy.backend.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{E94970D3-6F2B-4715-83E6-0DF620450778}|DealZy.Backend\\DealZy.Backend.csproj|solutionrelative:dealzy.backend\\dealzy.backend.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+      "AbsoluteMoniker": "D:0:0:{E94970D3-6F2B-4715-83E6-0DF620450778}|DealZy.Backend\\DealZy.Backend.csproj|d:\\dealzy\\dealzy.backend\\weatherforecast.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E94970D3-6F2B-4715-83E6-0DF620450778}|DealZy.Backend\\DealZy.Backend.csproj|solutionrelative:dealzy.backend\\weatherforecast.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Dealzy\\dealzy.frontend\\src\\HomePage.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:dealzy.frontend\\src\\HomePage.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{91176037-8CDE-400D-A502-B79B77D6763D}|D:\\Dealzy\\dealzy.frontend|d:\\dealzy\\dealzy.frontend\\src\\index.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{91176037-8CDE-400D-A502-B79B77D6763D}|D:\\Dealzy\\dealzy.frontend|solutionrelative:dealzy.frontend\\src\\index.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{91176037-8CDE-400D-A502-B79B77D6763D}|D:\\Dealzy\\dealzy.frontend|d:\\dealzy\\dealzy.frontend\\src\\app.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{91176037-8CDE-400D-A502-B79B77D6763D}|D:\\Dealzy\\dealzy.frontend|solutionrelative:dealzy.frontend\\src\\app.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E94970D3-6F2B-4715-83E6-0DF620450778}|DealZy.Backend\\DealZy.Backend.csproj|d:\\dealzy\\dealzy.backend\\services\\myjpif.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E94970D3-6F2B-4715-83E6-0DF620450778}|DealZy.Backend\\DealZy.Backend.csproj|solutionrelative:dealzy.backend\\services\\myjpif.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E94970D3-6F2B-4715-83E6-0DF620450778}|DealZy.Backend\\DealZy.Backend.csproj|d:\\dealzy\\dealzy.backend\\controllers\\adscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E94970D3-6F2B-4715-83E6-0DF620450778}|DealZy.Backend\\DealZy.Backend.csproj|solutionrelative:dealzy.backend\\controllers\\adscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/DealZyDB/True/SqlTable/dbo.Ads.sql||{0058A1F7-65F3-4DB9-B3D0-CA7E64DD73CD}"
@@ -48,22 +80,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{E94970D3-6F2B-4715-83E6-0DF620450778}|DealZy.Backend\\DealZy.Backend.csproj|d:\\dealzy\\dealzy.backend\\models\\ad.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E94970D3-6F2B-4715-83E6-0DF620450778}|DealZy.Backend\\DealZy.Backend.csproj|solutionrelative:dealzy.backend\\models\\ad.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E94970D3-6F2B-4715-83E6-0DF620450778}|DealZy.Backend\\DealZy.Backend.csproj|d:\\dealzy\\dealzy.backend\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{E94970D3-6F2B-4715-83E6-0DF620450778}|DealZy.Backend\\DealZy.Backend.csproj|solutionrelative:dealzy.backend\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E94970D3-6F2B-4715-83E6-0DF620450778}|DealZy.Backend\\DealZy.Backend.csproj|d:\\dealzy\\dealzy.backend\\models\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E94970D3-6F2B-4715-83E6-0DF620450778}|DealZy.Backend\\DealZy.Backend.csproj|solutionrelative:dealzy.backend\\models\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E94970D3-6F2B-4715-83E6-0DF620450778}|DealZy.Backend\\DealZy.Backend.csproj|d:\\dealzy\\dealzy.backend\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E94970D3-6F2B-4715-83E6-0DF620450778}|DealZy.Backend\\DealZy.Backend.csproj|solutionrelative:dealzy.backend\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E94970D3-6F2B-4715-83E6-0DF620450778}|DealZy.Backend\\DealZy.Backend.csproj|d:\\dealzy\\dealzy.backend\\todo.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{E94970D3-6F2B-4715-83E6-0DF620450778}|DealZy.Backend\\DealZy.Backend.csproj|solutionrelative:dealzy.backend\\todo.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
     }
   ],
   "DocumentGroupContainers": [
@@ -73,49 +89,159 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 11,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "LoginRequest.cs",
+              "DocumentMoniker": "D:\\Dealzy\\DealZy.Backend\\Models\\DTO\\Requests\\LoginRequest.cs",
+              "RelativeDocumentMoniker": "DealZy.Backend\\Models\\DTO\\Requests\\LoginRequest.cs",
+              "ToolTip": "D:\\Dealzy\\DealZy.Backend\\Models\\DTO\\Requests\\LoginRequest.cs",
+              "RelativeToolTip": "DealZy.Backend\\Models\\DTO\\Requests\\LoginRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-10T11:46:55.069Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "RegisterRequest.cs",
+              "DocumentMoniker": "D:\\Dealzy\\DealZy.Backend\\Models\\DTO\\Requests\\RegisterRequest.cs",
+              "RelativeDocumentMoniker": "DealZy.Backend\\Models\\DTO\\Requests\\RegisterRequest.cs",
+              "ToolTip": "D:\\Dealzy\\DealZy.Backend\\Models\\DTO\\Requests\\RegisterRequest.cs",
+              "RelativeToolTip": "DealZy.Backend\\Models\\DTO\\Requests\\RegisterRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-10T11:46:34.077Z"
+            },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "App.js",
-              "DocumentMoniker": "D:\\Dealzy\\dealzy.frontend\\src\\App.js",
-              "RelativeDocumentMoniker": "dealzy.frontend\\src\\App.js",
-              "ToolTip": "D:\\Dealzy\\dealzy.frontend\\src\\App.js",
-              "RelativeToolTip": "dealzy.frontend\\src\\App.js",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAANAAAAAAAAAA==",
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\Dealzy\\DealZy.Backend\\Program.cs",
+              "RelativeDocumentMoniker": "DealZy.Backend\\Program.cs",
+              "ToolTip": "D:\\Dealzy\\DealZy.Backend\\Program.cs",
+              "RelativeToolTip": "DealZy.Backend\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACYAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-13T17:30:11.935Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "index.js",
+              "DocumentMoniker": "D:\\Dealzy\\dealzy.frontend\\src\\index.js",
+              "RelativeDocumentMoniker": "dealzy.frontend\\src\\index.js",
+              "ToolTip": "D:\\Dealzy\\dealzy.frontend\\src\\index.js",
+              "RelativeToolTip": "dealzy.frontend\\src\\index.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2025-03-23T18:38:02.705Z",
+              "WhenOpened": "2025-03-23T18:39:18.628Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "AdsController.cs",
+              "DocumentMoniker": "D:\\Dealzy\\DealZy.Backend\\Controllers\\AdsController.cs",
+              "RelativeDocumentMoniker": "DealZy.Backend\\Controllers\\AdsController.cs",
+              "ToolTip": "D:\\Dealzy\\DealZy.Backend\\Controllers\\AdsController.cs",
+              "RelativeToolTip": "DealZy.Backend\\Controllers\\AdsController.cs",
+              "ViewState": "AgIAACIAAAAAAAAAAAAAwC8AAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-17T19:53:23.184Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "dbo.Ads.sql",
+              "DocumentMoniker": "ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/DealZyDB/True/SqlTable/dbo.Ads.sql",
+              "ToolTip": "ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/DealZyDB/True/SqlTable/dbo.Ads.sql",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
+              "WhenOpened": "2025-03-22T19:36:39.071Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "D:\\Dealzy\\DealZy.Backend\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "DealZy.Backend\\Properties\\launchSettings.json",
+              "ToolTip": "D:\\Dealzy\\DealZy.Backend\\Properties\\launchSettings.json",
+              "RelativeToolTip": "DealZy.Backend\\Properties\\launchSettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-03-17T19:07:27.855Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "User.cs",
+              "DocumentMoniker": "D:\\Dealzy\\DealZy.Backend\\Models\\User.cs",
+              "RelativeDocumentMoniker": "DealZy.Backend\\Models\\User.cs",
+              "ToolTip": "D:\\Dealzy\\DealZy.Backend\\Models\\User.cs",
+              "RelativeToolTip": "DealZy.Backend\\Models\\User.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-17T19:25:42.812Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AppDbContext.cs",
+              "DocumentMoniker": "D:\\Dealzy\\DealZy.Backend\\Models\\AppDbContext.cs",
+              "RelativeDocumentMoniker": "DealZy.Backend\\Models\\AppDbContext.cs",
+              "ToolTip": "D:\\Dealzy\\DealZy.Backend\\Models\\AppDbContext.cs",
+              "RelativeToolTip": "DealZy.Backend\\Models\\AppDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAA/AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-13T18:21:49.502Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "HomePage.js",
-              "DocumentMoniker": "D:\\Dealzy\\dealzy.frontend\\src\\HomePage.js",
-              "RelativeDocumentMoniker": "dealzy.frontend\\src\\HomePage.js",
-              "ToolTip": "D:\\Dealzy\\dealzy.frontend\\src\\HomePage.js",
-              "RelativeToolTip": "dealzy.frontend\\src\\HomePage.js",
-              "ViewState": "AgIAAAEAAAAAAAAAAAAcwA0AAAAjAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2025-03-23T18:35:41.655Z",
+              "Title": "todo.txt",
+              "DocumentMoniker": "D:\\Dealzy\\DealZy.Backend\\todo.txt",
+              "RelativeDocumentMoniker": "DealZy.Backend\\todo.txt",
+              "ToolTip": "D:\\Dealzy\\DealZy.Backend\\todo.txt",
+              "RelativeToolTip": "DealZy.Backend\\todo.txt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2025-02-13T18:15:49.455Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "MyJPIF.cs",
-              "DocumentMoniker": "D:\\Dealzy\\DealZy.Backend\\Services\\MyJPIF.cs",
-              "RelativeDocumentMoniker": "DealZy.Backend\\Services\\MyJPIF.cs",
-              "ToolTip": "D:\\Dealzy\\DealZy.Backend\\Services\\MyJPIF.cs",
-              "RelativeToolTip": "DealZy.Backend\\Services\\MyJPIF.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAZAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-22T20:41:50.874Z"
+              "DocumentIndex": 0,
+              "Title": "DealZy.Backend.csproj",
+              "DocumentMoniker": "D:\\Dealzy\\DealZy.Backend\\DealZy.Backend.csproj",
+              "RelativeDocumentMoniker": "DealZy.Backend\\DealZy.Backend.csproj",
+              "ToolTip": "D:\\Dealzy\\DealZy.Backend\\DealZy.Backend.csproj",
+              "RelativeToolTip": "DealZy.Backend\\DealZy.Backend.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-02-13T17:27:42.435Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 6,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "D:\\Dealzy\\DealZy.Backend\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "DealZy.Backend\\Controllers\\AuthController.cs",
+              "ToolTip": "D:\\Dealzy\\DealZy.Backend\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "DealZy.Backend\\Controllers\\AuthController.cs",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAowCYAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-10T11:47:30.347Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
               "Title": "20250317194442_AddUserTable.cs",
               "DocumentMoniker": "D:\\Dealzy\\DealZy.Backend\\Migrations\\20250317194442_AddUserTable.cs",
               "RelativeDocumentMoniker": "DealZy.Backend\\Migrations\\20250317194442_AddUserTable.cs",
@@ -127,104 +253,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Program.cs",
-              "DocumentMoniker": "D:\\Dealzy\\DealZy.Backend\\Program.cs",
-              "RelativeDocumentMoniker": "DealZy.Backend\\Program.cs",
-              "ToolTip": "D:\\Dealzy\\DealZy.Backend\\Program.cs",
-              "RelativeToolTip": "DealZy.Backend\\Program.cs",
-              "ViewState": "AgIAACAAAAAAAAAAAAAcwCYAAAAdAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-13T17:30:11.935Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "index.js",
-              "DocumentMoniker": "D:\\Dealzy\\dealzy.frontend\\src\\index.js",
-              "RelativeDocumentMoniker": "dealzy.frontend\\src\\index.js",
-              "ToolTip": "D:\\Dealzy\\dealzy.frontend\\src\\index.js",
-              "RelativeToolTip": "dealzy.frontend\\src\\index.js",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAUAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2025-03-23T18:39:18.628Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "AdsController.cs",
-              "DocumentMoniker": "D:\\Dealzy\\DealZy.Backend\\Controllers\\AdsController.cs",
-              "RelativeDocumentMoniker": "DealZy.Backend\\Controllers\\AdsController.cs",
-              "ToolTip": "D:\\Dealzy\\DealZy.Backend\\Controllers\\AdsController.cs",
-              "RelativeToolTip": "DealZy.Backend\\Controllers\\AdsController.cs",
-              "ViewState": "AgIAACEAAAAAAAAAAAAzwC8AAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-17T19:53:23.184Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "dbo.Ads.sql",
-              "DocumentMoniker": "ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/DealZyDB/True/SqlTable/dbo.Ads.sql",
-              "ToolTip": "ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/DealZyDB/True/SqlTable/dbo.Ads.sql",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2025-03-22T19:36:39.071Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "launchSettings.json",
-              "DocumentMoniker": "D:\\Dealzy\\DealZy.Backend\\Properties\\launchSettings.json",
-              "RelativeDocumentMoniker": "DealZy.Backend\\Properties\\launchSettings.json",
-              "ToolTip": "D:\\Dealzy\\DealZy.Backend\\Properties\\launchSettings.json",
-              "RelativeToolTip": "DealZy.Backend\\Properties\\launchSettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAuAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-03-17T19:07:27.855Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "AppDbContext.cs",
-              "DocumentMoniker": "D:\\Dealzy\\DealZy.Backend\\Models\\AppDbContext.cs",
-              "RelativeDocumentMoniker": "DealZy.Backend\\Models\\AppDbContext.cs",
-              "ToolTip": "D:\\Dealzy\\DealZy.Backend\\Models\\AppDbContext.cs",
-              "RelativeToolTip": "DealZy.Backend\\Models\\AppDbContext.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-13T18:21:49.502Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "todo.txt",
-              "DocumentMoniker": "D:\\Dealzy\\DealZy.Backend\\todo.txt",
-              "RelativeDocumentMoniker": "DealZy.Backend\\todo.txt",
-              "ToolTip": "D:\\Dealzy\\DealZy.Backend\\todo.txt",
-              "RelativeToolTip": "DealZy.Backend\\todo.txt",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAABJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
-              "WhenOpened": "2025-02-13T18:15:49.455Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "DealZy.Backend.csproj",
-              "DocumentMoniker": "D:\\Dealzy\\DealZy.Backend\\DealZy.Backend.csproj",
-              "RelativeDocumentMoniker": "DealZy.Backend\\DealZy.Backend.csproj",
-              "ToolTip": "D:\\Dealzy\\DealZy.Backend\\DealZy.Backend.csproj",
-              "RelativeToolTip": "DealZy.Backend\\DealZy.Backend.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-02-13T17:27:42.435Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 11,
               "Title": "appsettings.json",
               "DocumentMoniker": "D:\\Dealzy\\DealZy.Backend\\appsettings.json",
               "RelativeDocumentMoniker": "DealZy.Backend\\appsettings.json",
@@ -232,36 +261,11 @@
               "RelativeToolTip": "DealZy.Backend\\appsettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAABOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-02-13T18:05:31.644Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-13T18:05:31.644Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "Ad.cs",
-              "DocumentMoniker": "D:\\Dealzy\\DealZy.Backend\\Models\\Ad.cs",
-              "RelativeDocumentMoniker": "DealZy.Backend\\Models\\Ad.cs",
-              "ToolTip": "D:\\Dealzy\\DealZy.Backend\\Models\\Ad.cs",
-              "RelativeToolTip": "DealZy.Backend\\Models\\Ad.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-17T19:20:15.955Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "User.cs",
-              "DocumentMoniker": "D:\\Dealzy\\DealZy.Backend\\Models\\User.cs",
-              "RelativeDocumentMoniker": "DealZy.Backend\\Models\\User.cs",
-              "ToolTip": "D:\\Dealzy\\DealZy.Backend\\Models\\User.cs",
-              "RelativeToolTip": "DealZy.Backend\\Models\\User.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-17T19:25:42.812Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 10,
               "Title": "appsettings.Development.json",
               "DocumentMoniker": "D:\\Dealzy\\DealZy.Backend\\appsettings.Development.json",
               "RelativeDocumentMoniker": "DealZy.Backend\\appsettings.Development.json",
@@ -270,6 +274,66 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
               "WhenOpened": "2025-02-13T17:46:44.447Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "WeatherForecast.cs",
+              "DocumentMoniker": "D:\\Dealzy\\DealZy.Backend\\WeatherForecast.cs",
+              "RelativeDocumentMoniker": "DealZy.Backend\\WeatherForecast.cs",
+              "ToolTip": "D:\\Dealzy\\DealZy.Backend\\WeatherForecast.cs",
+              "RelativeToolTip": "DealZy.Backend\\WeatherForecast.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-10T10:44:10.961Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "MyJPIF.cs",
+              "DocumentMoniker": "D:\\Dealzy\\DealZy.Backend\\Services\\MyJPIF.cs",
+              "RelativeDocumentMoniker": "DealZy.Backend\\Services\\MyJPIF.cs",
+              "ToolTip": "D:\\Dealzy\\DealZy.Backend\\Services\\MyJPIF.cs",
+              "RelativeToolTip": "DealZy.Backend\\Services\\MyJPIF.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-22T20:41:50.874Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "HomePage.js",
+              "DocumentMoniker": "D:\\Dealzy\\dealzy.frontend\\src\\HomePage.js",
+              "RelativeDocumentMoniker": "dealzy.frontend\\src\\HomePage.js",
+              "ToolTip": "D:\\Dealzy\\dealzy.frontend\\src\\HomePage.js",
+              "RelativeToolTip": "dealzy.frontend\\src\\HomePage.js",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAcwA0AAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2025-03-23T18:35:41.655Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "App.js",
+              "DocumentMoniker": "D:\\Dealzy\\dealzy.frontend\\src\\App.js",
+              "RelativeDocumentMoniker": "dealzy.frontend\\src\\App.js",
+              "ToolTip": "D:\\Dealzy\\dealzy.frontend\\src\\App.js",
+              "RelativeToolTip": "dealzy.frontend\\src\\App.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2025-03-23T18:38:02.705Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "Ad.cs",
+              "DocumentMoniker": "D:\\Dealzy\\DealZy.Backend\\Models\\Ad.cs",
+              "RelativeDocumentMoniker": "DealZy.Backend\\Models\\Ad.cs",
+              "ToolTip": "D:\\Dealzy\\DealZy.Backend\\Models\\Ad.cs",
+              "RelativeToolTip": "DealZy.Backend\\Models\\Ad.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-17T19:20:15.955Z"
             }
           ]
         }
