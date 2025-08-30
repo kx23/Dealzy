@@ -45,7 +45,7 @@ namespace DealZy.Backend.Controllers
             _context.Ads.Add(ad);
             await _context.SaveChangesAsync();
             return CreatedAtAction(nameof(GetAd), new { id = ad.Id }, ad);
-        }
+        } 
 
         // PUT: api/ads/{id} - обновить объявление
         [HttpPut("{id}")]
