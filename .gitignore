@@ -1,10 +1,76 @@
+### ASP.NET Core ###
 bin/
 obj/
 *.user
 *.suo
-
-node_modules/
-.env
-build/
-
+*.cache
+*.log
+*.vspscc
+*.vssscc
+*.userosscache
+*.sln.docstates
 .vs/
+Generated\ Files/
+
+# DotCover
+.idea/
+*.dotCover
+
+# Rider
+.idea/
+
+# Publish output
+/publish/
+/out/
+
+# Visual Studio Code
+.vscode/
+
+# Resharper
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+
+# Backup & Reports
+*.ncb
+*.opensdf
+*.sdf
+*.cachefile
+*.dbmdl
+*.bak
+*.mdf
+*.ldf
+*.ndf
+
+# EF Core Migrations snapshot
+Migrations/
+
+### Node / React frontend ###
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# production
+build/
+dist/
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Logs
+logs
+*.log
+lerna-debug.log*
+
+# Editor
+.idea/
+*.iml
+
+### OS gene
