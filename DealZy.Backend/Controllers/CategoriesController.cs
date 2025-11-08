@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
+using DealZy.Backend.Models.DTO;
 
 namespace DealZy.Backend.Controllers
 {
@@ -21,10 +22,20 @@ namespace DealZy.Backend.Controllers
         public async Task<IActionResult> GetCategories()
         {
             var categories = await _context.Categories
+                .Where(c => c.ParentId == null)
                 .Include(c => c.Children)
                 .ToListAsync();
+            
+            var result = categories.Select(c => MapToDto(c)).ToList();
 
-            return Ok(categories);
+            CategoryDto MapToDto(Category c) => new CategoryDto
+            {
+                Id = c.Id,
+                Name = c.Name,
+                Children = c.Children.Select(MapToDto).ToList()
+            };
+
+            return Ok(result);
         }
 
 

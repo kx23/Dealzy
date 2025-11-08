@@ -11,6 +11,9 @@ const Navbar = () => {
             <div className="ms-auto">
                 {user ? (
                     <div className="d-flex align-items-center">
+                        <Link className="nav-link btn btn-outline-primary me-3" to="/addad">
+                            + Добавить объявление
+                        </Link>
                         <span className="me-3">👤 {user.username}</span>
                         <button className="btn btn-outline-danger btn-sm" onClick={logout}>Logout</button>
                     </div>

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DealZy.Backend.Models
 {
@@ -12,7 +13,9 @@ namespace DealZy.Backend.Models
         public string Name { get; set; }
 
         public Guid? ParentId { get; set; }
-        public Category? Parent { get; set; }
+        
+        [ForeignKey(nameof(ParentId))]
+        public Category Parent { get; set; }
 
         public ICollection<Category> Children { get; set; } = new List<Category>();
 
