@@ -11,5 +11,7 @@ public class HouseAd: RealEstateAd
     [Required]
     public int Floors { get; set; }       
     [Required]
-    public int Rooms { get; set; }  
+    public int Rooms { get; set; }
+    
+    
 }

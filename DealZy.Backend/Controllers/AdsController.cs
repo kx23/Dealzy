@@ -1,4 +1,7 @@
-﻿using DealZy.Backend.Models;
+﻿using System.Text.Json;
+using DealZy.Backend.Models;
+using DealZy.Backend.Models.DTO.AdDTO;
+using DealZy.Backend.Models.RealEstate;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -37,13 +40,66 @@ namespace DealZy.Backend.Controllers
 
         // POST: api/ads - создать объявление
         [HttpPost]
-        public async Task<ActionResult<Ad>> CreateAd(Ad ad)
+        [HttpPost]
+        public async Task<IActionResult> CreateAd([FromBody] JsonElement request)
         {
-            _context.Ads.Add(ad);
+            if (!request.TryGetProperty("categoryName", out var categoryElement))
+            {
+                return BadRequest("Неверный формат запроса. Ожидается { category, data }.");
+            }
+
+            var category = categoryElement.GetString();
+            if (string.IsNullOrWhiteSpace(category))
+                return BadRequest("Категория обязательна.");
+            
+            if (!_context.Categories.Any(c => c.Name == category))
+                return BadRequest("No such category.");
+            
+            
+            switch (category)
+            {
+                case "Собственный дом":
+                    var houseDto = JsonSerializer.Deserialize<HouseAdDto>(request.GetRawText(),
+                        new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                    if (houseDto == null) return BadRequest("Ошибка в данных.");
+                    return await CreateHouseAd(houseDto);
+                
+
+                default:
+                    return BadRequest($"Категория '{category}' не поддерживается.");
+            }
+
+
+        }
+        
+        
+        private async Task<IActionResult> CreateHouseAd(HouseAdDto dto)
+        {
+            var category = _context.Categories.FirstOrDefault(c => c.Name == dto.CategoryName);
+            var ad = new HouseAd
+            {
+                Title = dto.Title,
+                Description= dto.Description,
+                ImageUrl= dto.ImageUrl,
+                Address = dto.Address,
+                Price = dto.Price,
+                Area = dto.HouseArea,
+                HouseArea = dto.HouseArea,
+                LandArea = dto.LandArea,
+                Floors = dto.Floors,
+                Rooms = dto.Rooms,
+                CategoryId = category.Id
+            };
+            
+
+            _context.HouseAds.Add(ad);
             await _context.SaveChangesAsync();
             return CreatedAtAction(nameof(GetAd), new { id = ad.Id }, ad);
-        } 
+        }
+        
 
+        
+        
         // PUT: api/ads/{id} - обновить объявление
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateAd(string id, Ad ad)

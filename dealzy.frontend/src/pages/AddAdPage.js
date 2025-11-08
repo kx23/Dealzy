@@ -1,6 +1,46 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import CategoriesMenu from "../components/CategoriesMenu"; // <-- импортируем меню категорий
+import CategoriesMenu from "../components/CategoriesMenu";
+
+// 🔹 Конфигурация полей по категориям
+const categoryFields = {
+    "Собственный дом": [
+        { name: "title", label: "Заголовок", type: "text" },
+        { name: "description", label: "Описание", type: "text" },
+        { name: "imageUrl", label: "imageUrl", type: "text" },
+        { name: "address", label: "Адрес", type: "text" },
+        { name: "price", label: "Цена", type: "number" },
+        { name: "houseArea", label: "Площадь дома", type: "number" },
+        { name: "landArea", label: "Площадь участка", type: "number" },
+        { name: "floors", label: "Этажность", type: "number" },
+        { name: "rooms", label: "Количество комнат", type: "number" }
+    ],
+    "Квартира": [
+        { name: "title", label: "Заголовок", type: "text" },
+        { name: "address", label: "Адрес", type: "text" },
+        { name: "price", label: "Цена", type: "number" },
+        { name: "area", label: "Общая площадь", type: "number" },
+        { name: "buildingFloors", label: "Этажность здания", type: "number" },
+        { name: "apartmentFloor", label: "Этаж квартиры", type: "number" },
+        { name: "rooms", label: "Количество комнат", type: "number" }
+    ],
+    "Коммерческая недвижимость": [
+        { name: "title", label: "Заголовок", type: "text" },
+        { name: "address", label: "Адрес", type: "text" },
+        { name: "price", label: "Цена", type: "number" },
+        { name: "purpose", label: "Назначение", type: "text" },
+        { name: "area", label: "Площадь", type: "number" },
+        { name: "floors", label: "Этажность", type: "number" }
+    ],
+    "Земельный участок": [
+        { name: "title", label: "Заголовок", type: "text" },
+        { name: "description", label: "Описание", type: "text" },
+        { name: "imageUrl", label: "imageUrl", type: "text" },
+        { name: "address", label: "Адрес", type: "text" },
+        { name: "price", label: "Цена", type: "number" },
+        { name: "area", label: "Площадь участка", type: "number" },
+    ]
+};
 
 const AddAdPage = () => {
     const [categories, setCategories] = useState([]);
@@ -13,29 +53,25 @@ const AddAdPage = () => {
             .catch(err => console.error("Ошибка загрузки категорий", err));
     }, []);
 
-    const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
-
     const handleCategorySelect = (categoryName) => {
         setSelectedCategory(categoryName);
-        setFormData({}); // очищаем форму при смене категории
+        setFormData({});
+    };
+
+    const handleChange = (e) => {
+        const { name, value, type } = e.target;
+
+        setFormData({
+            ...formData,
+            [name]: type === "number" ? parseFloat(value) || 0 : value,
+            categoryName: selectedCategory
+        });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        let url = "http://localhost:5176/api/ads";
 
-        switch (selectedCategory) {
-            case "Собственный дом":
-                url = "http://localhost:5176/api/realestate/house"; break;
-            case "Квартира":
-                url = "http://localhost:5176/api/realestate/apartment"; break;
-            case "Коммерческая недвижимость":
-                url = "http://localhost:5176/api/realestate/commercial"; break;
-            case "Земельный участок":
-                url = "http://localhost:5176/api/realestate/land"; break;
-        }
+        let url = "http://localhost:5176/api/ads";
 
         try {
             await axios.post(url, formData);
@@ -46,66 +82,44 @@ const AddAdPage = () => {
         }
     };
 
-    const renderForm = () => {
-        switch (selectedCategory) {
-            case "Собственный дом": return (
-                <>
-                    <input name="title" placeholder="Заголовок" onChange={handleChange} />
-                    <input name="address" placeholder="Адрес" onChange={handleChange} />
-                    <input name="price" type="number" placeholder="Цена" onChange={handleChange} />
-                    <input name="area" placeholder="Общая площадь" onChange={handleChange} />
-                    <input name="houseArea" placeholder="Площадь дома" onChange={handleChange} />
-                    <input name="landArea" placeholder="Площадь участка" onChange={handleChange} />
-                    <input name="floors" placeholder="Этажность" onChange={handleChange} />
-                    <input name="rooms" placeholder="Комнат" onChange={handleChange} />
-                </>
-            );
-            case "Квартира": return (
-                <>
-                    <input name="title" placeholder="Заголовок" onChange={handleChange} />
-                    <input name="address" placeholder="Адрес" onChange={handleChange} />
-                    <input name="price" type="number" placeholder="Цена" onChange={handleChange} />
-                    <input name="area" placeholder="Общая площадь" onChange={handleChange} />
-                    <input name="buildingFloors" placeholder="Этажность здания" onChange={handleChange} />
-                    <input name="apartmentFloor" placeholder="Этаж квартиры" onChange={handleChange} />
-                    <input name="rooms" placeholder="Комнат" onChange={handleChange} />
-                </>
-            );
-            case "Коммерческая недвижимость": return (
-                <>
-                    <input name="title" placeholder="Заголовок" onChange={handleChange} />
-                    <input name="address" placeholder="Адрес" onChange={handleChange} />
-                    <input name="price" type="number" placeholder="Цена" onChange={handleChange} />
-                    <input name="purpose" placeholder="Назначение" onChange={handleChange} />
-                    <input name="area" placeholder="Площадь" onChange={handleChange} />
-                    <input name="floors" placeholder="Этажность" onChange={handleChange} />
-                </>
-            );
-            case "Земельный участок": return (
-                <>
-                    <input name="title" placeholder="Заголовок" onChange={handleChange} />
-                    <input name="address" placeholder="Адрес" onChange={handleChange} />
-                    <input name="price" type="number" placeholder="Цена" onChange={handleChange} />
-                    <input name="landArea" placeholder="Площадь участка" onChange={handleChange} />
-                    <input name="purpose" placeholder="Назначение участка" onChange={handleChange} />
-                </>
-            );
-            default: return <p className="text-muted">Выберите категорию слева, чтобы заполнить форму.</p>;
+    // 🔹 Рендерим поля динамически
+    const renderFormFields = () => {
+        const fields = categoryFields[selectedCategory];
+        if (!fields) {
+            return <p className="text-muted">Выберите категорию слева, чтобы заполнить форму.</p>;
         }
+
+        return (
+            <div className="d-flex flex-column">
+                {fields.map((field) => (
+                    <div key={field.name} className="mb-3">
+                        <label className="form-label fw-semibold">{field.label}</label>
+                        <input
+                            name={field.name}
+                            type={field.type}
+                            className="form-control shadow-sm"
+                            onChange={handleChange}
+                            style={{ maxWidth: "600px" }}
+                        />
+                    </div>
+                ))}
+            </div>
+        );
     };
 
     return (
         <div className="container mt-5">
             <h2>Добавить объявление</h2>
-
             <div className="row">
                 <div className="col-md-4">
                     <CategoriesMenu categories={categories} onSelect={handleCategorySelect} />
                 </div>
                 <div className="col-md-8">
                     <form onSubmit={handleSubmit}>
-                        {renderForm()}
-                        {selectedCategory && <button className="btn btn-success mt-3 w-100">Создать объявление</button>}
+                        {renderFormFields()}
+                        {selectedCategory && (
+                            <button className="btn btn-success mt-3 w-100">Создать объявление</button>
+                        )}
                     </form>
                 </div>
             </div>

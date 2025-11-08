@@ -2,12 +2,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DealZy.Backend.Models.RealEstate;
 
-public class RealEstateAd: Ad
+public abstract class RealEstateAd: Ad
 {
     [Required]
     public double Area { get; set; } 
-
-    [Required]
+    
     public string SellerType { get; set; } 
 
     [Required]
