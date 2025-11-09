@@ -32,6 +32,7 @@ namespace DealZy.Backend.Controllers
             {
                 Id = c.Id,
                 Name = c.Name,
+                AdType = c.AdType,
                 Children = c.Children.Select(MapToDto).ToList()
             };
 

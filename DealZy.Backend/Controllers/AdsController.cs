@@ -40,7 +40,6 @@ namespace DealZy.Backend.Controllers
 
         // POST: api/ads - создать объявление
         [HttpPost]
-        [HttpPost]
         public async Task<IActionResult> CreateAd([FromBody] JsonElement request)
         {
             if (!request.TryGetProperty("categoryName", out var categoryElement))
@@ -72,10 +71,9 @@ namespace DealZy.Backend.Controllers
 
         }
         
-        
-        private async Task<IActionResult> CreateHouseAd(HouseAdDto dto)
+        [HttpPost("houseAd")]
+        public async Task<IActionResult> CreateHouseAd(HouseAdDto dto)
         {
-            var category = _context.Categories.FirstOrDefault(c => c.Name == dto.CategoryName);
             var ad = new HouseAd
             {
                 Title = dto.Title,
@@ -88,13 +86,15 @@ namespace DealZy.Backend.Controllers
                 LandArea = dto.LandArea,
                 Floors = dto.Floors,
                 Rooms = dto.Rooms,
-                CategoryId = category.Id
+                CategoryId = new Guid(dto.CategoryId)
             };
             
 
             _context.HouseAds.Add(ad);
             await _context.SaveChangesAsync();
             return CreatedAtAction(nameof(GetAd), new { id = ad.Id }, ad);
+
+
         }
         
 

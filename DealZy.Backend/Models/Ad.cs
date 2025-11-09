@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using DealZy.Backend.Models.Enums;
 
 namespace DealZy.Backend.Models
 {
@@ -23,5 +24,6 @@ namespace DealZy.Backend.Models
 
         public Guid CategoryId { get; set; }
         public Category Category { get; set; }
+
     }
 }

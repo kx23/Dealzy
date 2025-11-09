@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using DealZy.Backend.Models.Enums;
 
 namespace DealZy.Backend.Models
 {
@@ -20,5 +21,7 @@ namespace DealZy.Backend.Models
         public ICollection<Category> Children { get; set; } = new List<Category>();
 
         public ICollection<Ad> Ads { get; set; } = new List<Ad>();
+        
+        public AdType AdType { get; set; }
     }
 }

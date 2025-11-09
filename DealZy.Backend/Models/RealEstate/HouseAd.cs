@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using DealZy.Backend.Models.Enums;
 
 namespace DealZy.Backend.Models.RealEstate;
 
@@ -13,5 +14,6 @@ public class HouseAd: RealEstateAd
     [Required]
     public int Rooms { get; set; }
     
-    
+
+
 }

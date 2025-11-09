@@ -3,8 +3,8 @@ import axios from "axios";
 import CategoriesMenu from "../components/CategoriesMenu";
 
 // 🔹 Конфигурация полей по категориям
-const categoryFields = {
-    "Собственный дом": [
+const adTypeFields = {
+    1: [
         { name: "title", label: "Заголовок", type: "text" },
         { name: "description", label: "Описание", type: "text" },
         { name: "imageUrl", label: "imageUrl", type: "text" },
@@ -15,24 +15,7 @@ const categoryFields = {
         { name: "floors", label: "Этажность", type: "number" },
         { name: "rooms", label: "Количество комнат", type: "number" }
     ],
-    "Квартира": [
-        { name: "title", label: "Заголовок", type: "text" },
-        { name: "address", label: "Адрес", type: "text" },
-        { name: "price", label: "Цена", type: "number" },
-        { name: "area", label: "Общая площадь", type: "number" },
-        { name: "buildingFloors", label: "Этажность здания", type: "number" },
-        { name: "apartmentFloor", label: "Этаж квартиры", type: "number" },
-        { name: "rooms", label: "Количество комнат", type: "number" }
-    ],
-    "Коммерческая недвижимость": [
-        { name: "title", label: "Заголовок", type: "text" },
-        { name: "address", label: "Адрес", type: "text" },
-        { name: "price", label: "Цена", type: "number" },
-        { name: "purpose", label: "Назначение", type: "text" },
-        { name: "area", label: "Площадь", type: "number" },
-        { name: "floors", label: "Этажность", type: "number" }
-    ],
-    "Земельный участок": [
+    2: [
         { name: "title", label: "Заголовок", type: "text" },
         { name: "description", label: "Описание", type: "text" },
         { name: "imageUrl", label: "imageUrl", type: "text" },
@@ -44,7 +27,8 @@ const categoryFields = {
 
 const AddAdPage = () => {
     const [categories, setCategories] = useState([]);
-    const [selectedCategory, setSelectedCategory] = useState("");
+    const [selectedCategoryAdType, setSelectedCategoryAdType] = useState(0);
+    const [selectedCategoryId, setSelectedCategoryId] = useState(null);
     const [formData, setFormData] = useState({});
 
     useEffect(() => {
@@ -53,8 +37,9 @@ const AddAdPage = () => {
             .catch(err => console.error("Ошибка загрузки категорий", err));
     }, []);
 
-    const handleCategorySelect = (categoryName) => {
-        setSelectedCategory(categoryName);
+    const handleCategorySelect = (categoryId, adType) => {
+        setSelectedCategoryId(categoryId);
+        setSelectedCategoryAdType(adType);
         setFormData({});
     };
 
@@ -64,14 +49,14 @@ const AddAdPage = () => {
         setFormData({
             ...formData,
             [name]: type === "number" ? parseFloat(value) || 0 : value,
-            categoryName: selectedCategory
+            categoryId: selectedCategoryId
         });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        let url = "http://localhost:5176/api/ads";
+        let url = "http://localhost:5176/api/ads/houseAd";
 
         try {
             await axios.post(url, formData);
@@ -84,7 +69,7 @@ const AddAdPage = () => {
 
     // 🔹 Рендерим поля динамически
     const renderFormFields = () => {
-        const fields = categoryFields[selectedCategory];
+        const fields = adTypeFields[selectedCategoryAdType];
         if (!fields) {
             return <p className="text-muted">Выберите категорию слева, чтобы заполнить форму.</p>;
         }
@@ -117,7 +102,7 @@ const AddAdPage = () => {
                 <div className="col-md-8">
                     <form onSubmit={handleSubmit}>
                         {renderFormFields()}
-                        {selectedCategory && (
+                        {selectedCategoryAdType && (
                             <button className="btn btn-success mt-3 w-100">Создать объявление</button>
                         )}
                     </form>

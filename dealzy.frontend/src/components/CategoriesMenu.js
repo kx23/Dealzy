@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-// Рекурсивный компонент для подкатегорий
+
 const RecursiveCategories = ({ categories, onSelect }) => {
     return (
         <ul className="list-group">
@@ -8,7 +8,7 @@ const RecursiveCategories = ({ categories, onSelect }) => {
                 <li
                     key={cat.id}
                     className="list-group-item"
-                    onClick={() => onSelect(cat.name)}
+                    onClick={() => onSelect(cat.id, cat.adType)}
                     style={{ cursor: "pointer" }}
                 >
                     {cat.name}
