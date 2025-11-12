@@ -102,7 +102,8 @@ const AddAdPage = () => {
                 <div className="col-md-8">
                     <form onSubmit={handleSubmit}>
                         {renderFormFields()}
-                        {selectedCategoryAdType && (
+                        
+                        {!selectedCategoryAdType===null && (
                             <button className="btn btn-success mt-3 w-100">Создать объявление</button>
                         )}
                     </form>
