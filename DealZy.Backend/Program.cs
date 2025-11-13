@@ -31,7 +31,23 @@ namespace DealZy.Backend
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
+            
+            // Add Memory Cache for geocoding results
+            builder.Services.AddMemoryCache();
 
+            // Register HttpClient for GeocodingService with timeout configuration
+            builder.Services.AddHttpClient<IGeocodingService, GeocodingService>(ConfigureClient)
+                .ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
+                {
+                    // Allow automatic decompression for better performance
+                    AutomaticDecompression = System.Net.DecompressionMethods.GZip | System.Net.DecompressionMethods.Deflate 
+                });
+
+            // Register GeocodingService as scoped service
+            // (alternatively can be registered as singleton if preferred)
+            builder.Services.AddScoped<IGeocodingService, GeocodingService>();
+            
+            
             // Add services to the container.
             builder.Services.AddControllers(options =>
             {
@@ -97,6 +113,12 @@ namespace DealZy.Backend
             app.MapControllers();
 
             app.Run();
+        }
+
+        private static void ConfigureClient(HttpClient client)
+        {
+            // Set timeout for OSM Nominatim requests
+            client.Timeout = TimeSpan.FromSeconds(10);
         }
     }
 }
