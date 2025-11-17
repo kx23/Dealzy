@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import CategoriesMenu from "../components/CategoriesMenu";
+import AddressAutocomplete from "../components/AddressAutocomplete";
 
-// 🔹 Конфигурация полей по категориям
+// Configuration of fields by categories
 const adTypeFields = {
     1: [
         { name: "title", label: "Заголовок", type: "text" },
         { name: "description", label: "Описание", type: "text" },
         { name: "imageUrl", label: "imageUrl", type: "text" },
-        { name: "address", label: "Адрес", type: "text" },
+        { name: "address", label: "Адрес", type: "address" }, // Changed type to 'address'
         { name: "price", label: "Цена", type: "number" },
         { name: "houseArea", label: "Площадь дома", type: "number" },
         { name: "landArea", label: "Площадь участка", type: "number" },
@@ -19,7 +20,7 @@ const adTypeFields = {
         { name: "title", label: "Заголовок", type: "text" },
         { name: "description", label: "Описание", type: "text" },
         { name: "imageUrl", label: "imageUrl", type: "text" },
-        { name: "address", label: "Адрес", type: "text" },
+        { name: "address", label: "Адрес", type: "address" }, // Changed type to 'address'
         { name: "price", label: "Цена", type: "number" },
         { name: "area", label: "Площадь участка", type: "number" },
     ]
@@ -53,21 +54,33 @@ const AddAdPage = () => {
         });
     };
 
+    // Handler for address selection
+    const handleAddressSelect = (addressDto) => {
+        setFormData({
+            ...formData,
+            address: addressDto, // Will be null if user didn't select, or full address object
+            categoryId: selectedCategoryId
+        });
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         let url = "http://localhost:5176/api/ads/houseAd";
 
+        console.log("Submitting form data:", formData);
+
         try {
             await axios.post(url, formData);
             alert("Объявление успешно создано!");
+            setFormData({}); // Clear form
         } catch (err) {
             console.error(err);
             alert("Ошибка при создании объявления");
         }
     };
 
-    // 🔹 Рендерим поля динамически
+    // Render form fields dynamically
     const renderFormFields = () => {
         const fields = adTypeFields[selectedCategoryAdType];
         if (!fields) {
@@ -79,13 +92,23 @@ const AddAdPage = () => {
                 {fields.map((field) => (
                     <div key={field.name} className="mb-3">
                         <label className="form-label fw-semibold">{field.label}</label>
-                        <input
-                            name={field.name}
-                            type={field.type}
-                            className="form-control shadow-sm"
-                            onChange={handleChange}
-                            style={{ maxWidth: "600px" }}
-                        />
+
+                        {/* If field is address type, use AddressAutocomplete component */}
+                        {field.type === "address" ? (
+                            <AddressAutocomplete
+                                onAddressSelect={handleAddressSelect}
+                                value={formData.address}
+                            />
+                        ) : (
+                            <input
+                                name={field.name}
+                                type={field.type}
+                                className="form-control shadow-sm"
+                                onChange={handleChange}
+                                value={formData[field.name] || ''}
+                                style={{ maxWidth: "600px" }}
+                            />
+                        )}
                     </div>
                 ))}
             </div>
@@ -102,8 +125,8 @@ const AddAdPage = () => {
                 <div className="col-md-8">
                     <form onSubmit={handleSubmit}>
                         {renderFormFields()}
-                        
-                        {!selectedCategoryAdType===null && (
+
+                        {selectedCategoryAdType !== 0 && (
                             <button className="btn btn-success mt-3 w-100">Создать объявление</button>
                         )}
                     </form>

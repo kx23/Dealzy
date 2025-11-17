@@ -74,24 +74,67 @@ namespace DealZy.Backend.Controllers
         [HttpPost("houseAd")]
         public async Task<IActionResult> CreateHouseAd(HouseAdDto dto)
         {
+            Address address = null;
+            
+            // If user selected an address from dropdown
+            if (dto.Address != null)
+            {
+                // Check if this address already exists in DB (by coordinates)
+                address = await _context.Addresses
+                    .FirstOrDefaultAsync(a => 
+                        a.Latitude == dto.Address.Latitude && 
+                        a.Longitude == dto.Address.Longitude);
+        
+                // If address doesn't exist, create new one
+                if (address == null)
+                {
+                    address = new Address
+                    {
+                        DisplayName = dto.Address.DisplayName,
+                        Latitude = dto.Address.Latitude,
+                        Longitude = dto.Address.Longitude,
+                        City = dto.Address.City,
+                        Street = dto.Address.Street,
+                        HouseNumber = dto.Address.HouseNumber,
+                        PostalCode = dto.Address.PostalCode,
+                        Country = dto.Address.Country,
+                        State = dto.Address.State
+                    };
+            
+                    _context.Addresses.Add(address);
+                    await _context.SaveChangesAsync();
+            
+                    _logger.LogInformation("Created new address: {DisplayName}", address.DisplayName);
+                }
+                else
+                {
+                    _logger.LogInformation("Reusing existing address: {DisplayName}", address.DisplayName);
+                }
+            }
+            
+            
             var ad = new HouseAd
             {
                 Title = dto.Title,
-                Description= dto.Description,
-                ImageUrl= dto.ImageUrl,
-                Address = dto.Address,
+                Description = dto.Description,
+                ImageUrl = dto.ImageUrl,
                 Price = dto.Price,
                 Area = dto.HouseArea,
                 HouseArea = dto.HouseArea,
                 LandArea = dto.LandArea,
                 Floors = dto.Floors,
                 Rooms = dto.Rooms,
-                CategoryId = new Guid(dto.CategoryId)
+                CategoryId = new Guid(dto.CategoryId),
+                AddressId = address?.Id  // Will be null if user didn't select address
             };
             
 
             _context.HouseAds.Add(ad);
             await _context.SaveChangesAsync();
+            
+            _logger.LogInformation("Created HouseAd with ID: {AdId}, Address: {HasAddress}", 
+                ad.Id, ad.AddressId.HasValue ? "Yes" : "No");
+            
             return CreatedAtAction(nameof(GetAd), new { id = ad.Id }, ad);
 
 

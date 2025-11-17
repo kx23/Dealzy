@@ -9,7 +9,7 @@ public abstract class RealEstateAd: Ad
     
     public string SellerType { get; set; } 
 
-    [Required]
-    [MaxLength(500)]
-    public string Address { get; set; } 
+    // Address relationship
+    public Guid? AddressId { get; set; }  // Nullable if address is optional
+    public Address Address { get; set; }
 }

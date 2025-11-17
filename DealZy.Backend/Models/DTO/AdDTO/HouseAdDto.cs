@@ -13,8 +13,9 @@ public class HouseAdDto
    [JsonPropertyName("imageUrl")]
     public string ImageUrl { get; set; }
     
+    // Changed from string to AddressDto object (nullable)
     [JsonPropertyName("address")]
-    public string Address { get; set; }
+    public AddressDto Address { get; set; }  // null if user didn't select address
     
     
     [JsonPropertyName("price")]

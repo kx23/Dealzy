@@ -12,6 +12,7 @@ namespace DealZy.Backend.Models
         public DbSet<Ad> Ads { get; set; }
 
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Address> Addresses { get; set; }
         
         public DbSet<RealEstateAd> RealEstateAds { get; set; }
         public DbSet<HouseAd> HouseAds { get; set; }
@@ -28,12 +29,26 @@ namespace DealZy.Backend.Models
                 .WithOne(c => c.Parent)
                 .HasForeignKey(c => c.ParentId)
                 .OnDelete(DeleteBehavior.Restrict);
+            
+            modelBuilder.Entity<RealEstateAd>()
+                .HasOne(a => a.Address)
+                .WithMany()  // No navigation back to ads from Address
+                .HasForeignKey(a => a.AddressId)
+                .OnDelete(DeleteBehavior.SetNull);
 
             
             modelBuilder.Entity<Ad>()
                 .HasOne(a => a.Category)
                 .WithMany(c => c.Ads)
                 .HasForeignKey(a => a.CategoryId);
+            
+            // Add indexes for better query performance
+            modelBuilder.Entity<Address>()
+                .HasIndex(a => new { a.Latitude, a.Longitude })
+                .HasDatabaseName("IX_Address_Coordinates");
+            
+            modelBuilder.Entity<RealEstateAd>()
+                .HasIndex(r => r.AddressId);
 
             modelBuilder.Entity<Category>().HasData(
                 new Category
