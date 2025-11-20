@@ -8,8 +8,4 @@ public abstract class RealEstateAd: Ad
     public double Area { get; set; } 
     
     public string SellerType { get; set; } 
-
-    // Address relationship
-    public Guid? AddressId { get; set; }  // Nullable if address is optional
-    public Address Address { get; set; }
 }

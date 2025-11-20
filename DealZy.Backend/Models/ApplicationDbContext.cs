@@ -30,7 +30,7 @@ namespace DealZy.Backend.Models
                 .HasForeignKey(c => c.ParentId)
                 .OnDelete(DeleteBehavior.Restrict);
             
-            modelBuilder.Entity<RealEstateAd>()
+            modelBuilder.Entity<Ad>()
                 .HasOne(a => a.Address)
                 .WithMany()  // No navigation back to ads from Address
                 .HasForeignKey(a => a.AddressId)
@@ -47,7 +47,7 @@ namespace DealZy.Backend.Models
                 .HasIndex(a => new { a.Latitude, a.Longitude })
                 .HasDatabaseName("IX_Address_Coordinates");
             
-            modelBuilder.Entity<RealEstateAd>()
+            modelBuilder.Entity<Ad>()
                 .HasIndex(r => r.AddressId);
 
             modelBuilder.Entity<Category>().HasData(

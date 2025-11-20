@@ -22,6 +22,77 @@ namespace DealZy.Backend.Controllers
             _logger = logger;
         }
 
+        // GET: api/ads/search?query=...&categoryId=...&minPrice=...&maxPrice=...
+        [HttpGet("search")]
+        public async Task<ActionResult<IEnumerable<AdResponseDto>>> SearchAds(
+            [FromQuery] string query = "",
+            [FromQuery] Guid? categoryId = null,
+            [FromQuery] decimal? minPrice = null,
+            [FromQuery] decimal? maxPrice = null,
+            [FromQuery] int page = 1,
+            [FromQuery] int pageSize = 12)
+        {
+            try
+            {
+                var adsQuery = _context.Ads
+                    .Include(a => a.Category)
+                    .AsQueryable();
+
+                if (!string.IsNullOrWhiteSpace(query))
+                {
+                    query = query.ToLower();
+                    adsQuery = adsQuery.Where(a => 
+                        a.Title.ToLower().Contains(query) || 
+                        a.Description.ToLower().Contains(query));
+                }
+
+                if (categoryId.HasValue)
+                {
+                    adsQuery = adsQuery.Where(a => a.CategoryId == categoryId.Value);
+                }
+
+                if (minPrice.HasValue)
+                {
+                    adsQuery = adsQuery.Where(a => a.Price >= minPrice.Value);
+                }
+
+                if (maxPrice.HasValue)
+                {
+                    adsQuery = adsQuery.Where(a => a.Price <= maxPrice.Value);
+                }
+
+                var totalCount = await adsQuery.CountAsync();
+        
+                // Map to DTO to avoid circular reference
+                var ads = await adsQuery
+                    .OrderByDescending(a => a.Id)
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
+                    .Select(a => new AdResponseDto
+                    {
+                        Id = a.Id,
+                        Title = a.Title,
+                        Description = a.Description,
+                        Price = a.Price,
+                        ImageUrl = a.ImageUrl,
+                        CategoryId = a.CategoryId,
+                        CategoryName = a.Category.Name
+                    })
+                    .ToListAsync();
+
+                Response.Headers.Add("X-Total-Count", totalCount.ToString());
+        
+                return Ok(ads);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error searching ads");
+                return StatusCode(500, "Internal server error");
+            }
+        }
+        
+        
+        
         // GET: api/ads - получить все объявления
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Ad>>> GetAds()

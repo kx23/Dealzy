@@ -24,6 +24,8 @@ namespace DealZy.Backend.Models
 
         public Guid CategoryId { get; set; }
         public Category Category { get; set; }
-
+        
+        public Guid? AddressId { get; set; }
+        public Address Address { get; set; }
     }
 }
