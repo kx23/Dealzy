@@ -77,4 +77,5 @@ lerna-debug.log*
 .idea/
 *.iml
 
-### OS gene
+### Agent Files ###
+AGENTS.md
