@@ -100,13 +100,67 @@ namespace DealZy.Backend.Controllers
             return await _context.Ads.ToListAsync();
         }
 
-        // GET: api/ads/{id} - получить объявление по ID
+        // AdsController.cs - обновить метод GetAd
         [HttpGet("{id}")]
-        public async Task<ActionResult<Ad>> GetAd(string id)
+        public async Task<ActionResult<AdDetailDto>> GetAd(string id)
         {
-            var ad = await _context.Ads.FindAsync(new Guid(id));
-            if (ad == null) return NotFound();
-            return ad;
+            try 
+            {
+                if (!Guid.TryParse(id, out var guid))
+                {
+                    return BadRequest("Invalid ID format");
+                }
+        
+                var ad = await _context.Ads
+                    .Include(a => a.Category)
+                    .Include(a => a.Address)
+                    .FirstOrDefaultAsync(a => a.Id == guid);
+            
+                if (ad == null) 
+                {
+                    _logger.LogWarning($"Ad with ID {id} not found");
+                    return NotFound();
+                }
+        
+                // Map to DTO
+                var dto = new AdDetailDto
+                {
+                    Id = ad.Id,
+                    Title = ad.Title,
+                    Description = ad.Description,
+                    Price = ad.Price,
+                    ImageUrl = ad.ImageUrl,
+                    CategoryName = ad.Category?.Name,
+                    Address = ad.Address != null ? new AddressDto
+                    {
+                        DisplayName = ad.Address.DisplayName,
+                        City = ad.Address.City,
+                        Street = ad.Address.Street,
+                        HouseNumber = ad.Address.HouseNumber,
+                        PostalCode = ad.Address.PostalCode,
+                        Latitude = ad.Address.Latitude,
+                        Longitude = ad.Address.Longitude
+                    } : null
+                };
+        
+                // Add specific fields based on ad type
+                if (ad is HouseAd houseAd)
+                {
+                    dto.Area = houseAd.Area;
+                    dto.HouseArea = houseAd.HouseArea;
+                    dto.LandArea = houseAd.LandArea;
+                    dto.Floors = houseAd.Floors;
+                    dto.Rooms = houseAd.Rooms;
+                    dto.SellerType = houseAd.SellerType;
+                }
+        
+                return Ok(dto);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Error fetching ad with ID {id}");
+                return StatusCode(500, "Internal server error");
+            }
         }
 
         // POST: api/ads - создать объявление

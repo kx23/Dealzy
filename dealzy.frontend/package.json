@@ -2,6 +2,7 @@
   "name": "dealzy.frontend",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:5176",
   "dependencies": {
     "axios": "^1.8.4",
     "bootstrap": "^5.3.3",
