@@ -6,6 +6,7 @@ import LoginPage from './pages/LoginPage';
 import AddAdPage from "./pages/AddAdPage";
 import Navbar from "./components/Navbar";
 import AdDetailPage from "./pages/AdDetailPage";
+import CategoryPage from './pages/CategoryPage';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="/addad" element={<AddAdPage />} />
                     <Route path="/ad/:id" element={<AdDetailPage />} />
+                    <Route path="/category/:categoryId" element={<CategoryPage />} />
                 </Routes>
             </div>
         </Router>

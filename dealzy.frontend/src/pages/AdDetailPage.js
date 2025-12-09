@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 
 const AdDetailPage = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const [ad, setAd] = useState(null);
+    const [categoryPath, setCategoryPath] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -14,6 +15,16 @@ const AdDetailPage = () => {
             try {
                 const response = await axios.get(`/api/ads/${id}`);
                 setAd(response.data);
+
+                // Fetch category path if categoryId exists
+                if (response.data.categoryId) {
+                    try {
+                        const pathResponse = await axios.get(`/api/categories/${response.data.categoryId}/path`);
+                        setCategoryPath(pathResponse.data);
+                    } catch (pathError) {
+                        console.error('Error fetching category path:', pathError);
+                    }
+                }
             } catch (err) {
                 setError('Не удалось загрузить объявление');
                 console.error(err);
@@ -62,25 +73,27 @@ const AdDetailPage = () => {
                 ← Назад
             </button>
 
+            {/* Breadcrumbs */}
+            <nav className="mb-4 text-sm text-gray-600">
+                <Link to="/" className="hover:text-blue-600">Главная</Link>
+                {categoryPath && categoryPath.length > 0 && categoryPath.map((category, index) => (
+                    <span key={category.id}>
+            <span className="mx-2">→</span>
+                        {index === categoryPath.length - 1 ? (
+                            <span className="text-gray-900 font-medium">{category.name}</span>
+                        ) : (
+                            <Link to={`/category/${category.id}`} className="hover:text-blue-600">
+                                {category.name}
+                            </Link>
+                        )}
+          </span>
+                ))}
+            </nav>
+
             <div className="bg-white rounded-lg shadow-lg overflow-hidden">
                 <div className="grid md:grid-cols-2 gap-6">
-                    {/* Image Section */}
-                    <div className="relative">
-                        {ad.imageUrl ? (
-                            <img
-                                src={ad.imageUrl}
-                                alt={ad.title}
-                                className="w-full h-full object-cover min-h-[400px]"
-                            />
-                        ) : (
-                            <div className="w-full h-full min-h-[400px] bg-gray-200 flex items-center justify-center">
-                                <span className="text-gray-400 text-lg">Нет фото</span>
-                            </div>
-                        )}
-                    </div>
-
-                    {/* Details Section */}
-                    <div className="p-6">
+                    {/* Details Section - Now First */}
+                    <div className="p-6 order-2 md:order-1">
                         <h1 className="text-3xl font-bold mb-4">{ad.title}</h1>
 
                         <div className="text-4xl font-bold text-green-600 mb-6">
@@ -157,6 +170,21 @@ const AdDetailPage = () => {
                         <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-200">
                             Связаться с продавцом
                         </button>
+                    </div>
+
+                    {/* Image Section - Now Second */}
+                    <div className="relative order-1 md:order-2">
+                        {ad.imageUrl ? (
+                            <img
+                                src={ad.imageUrl}
+                                alt={ad.title}
+                                className="w-full h-full object-cover min-h-[400px]"
+                            />
+                        ) : (
+                            <div className="w-full h-full min-h-[400px] bg-gray-200 flex items-center justify-center">
+                                <span className="text-gray-400 text-lg">Нет фото</span>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

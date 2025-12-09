@@ -22,11 +22,31 @@ namespace DealZy.Backend.Controllers
             _logger = logger;
         }
 
+        
+        private async Task<List<Guid>> GetCategoryWithChildren(Guid categoryId)
+        {
+            var categoryIds = new List<Guid> { categoryId };
+    
+            // Get all children recursively
+            var children = await _context.Categories
+                .Where(c => c.ParentId == categoryId)
+                .ToListAsync();
+    
+            foreach (var child in children)
+            {
+                var childIds = await GetCategoryWithChildren(child.Id);
+                categoryIds.AddRange(childIds);
+            }
+    
+            return categoryIds;
+        }
+        
         // GET: api/ads/search?query=...&categoryId=...&minPrice=...&maxPrice=...
         [HttpGet("search")]
         public async Task<ActionResult<IEnumerable<AdResponseDto>>> SearchAds(
             [FromQuery] string query = "",
             [FromQuery] Guid? categoryId = null,
+            [FromQuery] bool includeSubcategories = true, // Add this parameter
             [FromQuery] decimal? minPrice = null,
             [FromQuery] decimal? maxPrice = null,
             [FromQuery] int page = 1,
@@ -48,7 +68,17 @@ namespace DealZy.Backend.Controllers
 
                 if (categoryId.HasValue)
                 {
-                    adsQuery = adsQuery.Where(a => a.CategoryId == categoryId.Value);
+                    if (includeSubcategories)
+                    {
+                        // Get category and all its children
+                        var categoryIds = await GetCategoryWithChildren(categoryId.Value);
+                        adsQuery = adsQuery.Where(a => categoryIds.Contains(a.CategoryId));
+                    }
+                    else
+                    {
+                        // Only exact category
+                        adsQuery = adsQuery.Where(a => a.CategoryId == categoryId.Value);
+                    }
                 }
 
                 if (minPrice.HasValue)
@@ -62,8 +92,7 @@ namespace DealZy.Backend.Controllers
                 }
 
                 var totalCount = await adsQuery.CountAsync();
-        
-                // Map to DTO to avoid circular reference
+
                 var ads = await adsQuery
                     .OrderByDescending(a => a.Id)
                     .Skip((page - 1) * pageSize)
@@ -80,8 +109,8 @@ namespace DealZy.Backend.Controllers
                     })
                     .ToListAsync();
 
-                Response.Headers.Add("X-Total-Count", totalCount.ToString());
-        
+                Response.Headers.Append("X-Total-Count", totalCount.ToString());
+
                 return Ok(ads);
             }
             catch (Exception ex)
@@ -130,6 +159,7 @@ namespace DealZy.Backend.Controllers
                     Description = ad.Description,
                     Price = ad.Price,
                     ImageUrl = ad.ImageUrl,
+                    CategoryId = ad.CategoryId,
                     CategoryName = ad.Category?.Name,
                     Address = ad.Address != null ? new AddressDto
                     {

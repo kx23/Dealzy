@@ -9,6 +9,8 @@ namespace DealZy.Backend.Models.DTO.AdDTO
         public decimal Price { get; set; }
         public string ImageUrl { get; set; }
         
+        public Guid CategoryId { get; set; }
+        
         // Category info
         public string CategoryName { get; set; }
         

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using DealZy.Backend.Models.DTO;
+using DealZy.Backend.Models.DTO.CategoryDTO;
 
 namespace DealZy.Backend.Controllers
 {
@@ -46,6 +47,46 @@ namespace DealZy.Backend.Controllers
             _context.Categories.Add(category);
             await _context.SaveChangesAsync();
             return Ok(category);
+        }
+        
+        [HttpGet("{id}/path")]
+        public async Task<ActionResult<List<CategoryBreadcrumbDto>>> GetCategoryPath(string id)
+        {
+            if (!Guid.TryParse(id, out var guid))
+            {
+                return BadRequest("Invalid ID format");
+            }
+    
+            var path = new List<CategoryBreadcrumbDto>();
+            var currentCategory = await _context.Categories
+                .FirstOrDefaultAsync(c => c.Id == guid);
+    
+            if (currentCategory == null)
+            {
+                return NotFound();
+            }
+    
+            // Build path from current category to root
+            while (currentCategory != null)
+            {
+                path.Insert(0, new CategoryBreadcrumbDto
+                {
+                    Id = currentCategory.Id,
+                    Name = currentCategory.Name
+                });
+        
+                if (currentCategory.ParentId.HasValue)
+                {
+                    currentCategory = await _context.Categories
+                        .FirstOrDefaultAsync(c => c.Id == currentCategory.ParentId.Value);
+                }
+                else
+                {
+                    break;
+                }
+            }
+    
+            return Ok(path);
         }
     }
 }
