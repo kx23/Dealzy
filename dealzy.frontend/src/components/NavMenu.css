@@ -1,0 +1,122 @@
+.nav-menu {
+  width: 100%;
+  background: #fff;
+  border-top: 1px solid #e8e8e8;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.nav-menu__inner {
+  max-width: 1920px;
+  margin: 0 auto;
+  padding: 0 clamp(24px, 13.5vw, 260px);
+  display: flex;
+}
+
+.nav-menu__item {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.nav-menu__item + .nav-menu__item::before {
+  content: "";
+  display: block;
+  width: 2px;
+  height: 35px;
+  background: #061E4A;
+  flex-shrink: 0;
+}
+
+.nav-menu__label {
+  display: block;
+  padding: 19px 24px;
+  font-family: "Rubik", sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  color: #196BD4;
+  cursor: pointer;
+  white-space: nowrap;
+  user-select: none;
+  transition: color 0.15s;
+}
+
+.nav-menu__item--open .nav-menu__label {
+  color: #061E4A;
+}
+
+.nav-menu__label:hover {
+  color: #061E4A;
+}
+
+.nav-menu__dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 300;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(6, 30, 74, 0.12);
+  padding: 8px 0;
+  min-width: 220px;
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-menu__dropdown--cols {
+  flex-direction: row;
+  min-width: 420px;
+  padding: 16px;
+  gap: 0;
+}
+
+.nav-menu__col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0 12px;
+}
+
+.nav-menu__col + .nav-menu__col {
+  border-left: 1px solid #e0e0e0;
+}
+
+.nav-menu__col-heading {
+  font-family: "Rubik", sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  color: #061E4A;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+  padding: 0 4px;
+}
+
+.nav-menu__col-divider {
+  height: 1px;
+  background: #e0e0e0;
+  margin-bottom: 8px;
+}
+
+.nav-menu__link {
+  display: block;
+  padding: 8px 16px;
+  font-family: "Rubik", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #1a1a1a;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background 0.15s, color 0.15s;
+  white-space: nowrap;
+}
+
+.nav-menu__link:hover {
+  background: #EBF3FF;
+  color: #136EF3;
+  text-decoration: none;
+}
+
+.nav-menu__col .nav-menu__link {
+  padding: 7px 4px;
+}
