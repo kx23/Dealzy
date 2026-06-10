@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "./NavMenu.css";
 
 const menuConfig = [
@@ -62,9 +62,12 @@ const menuConfig = [
   },
 ];
 
+const menuRoutes = ["/buy", "/rent", "/daily", "/commercial"];
+
 const NavMenu = () => {
   const [openIndex, setOpenIndex] = useState(null);
   const closeTimer = useRef(null);
+  const location = useLocation();
 
   const handleMouseEnter = (i) => {
     clearTimeout(closeTimer.current);
@@ -81,11 +84,15 @@ const NavMenu = () => {
         {menuConfig.map((section, i) => (
           <div
             key={section.label}
-            className={`nav-menu__item ${openIndex === i ? "nav-menu__item--open" : ""}`}
+            className={`nav-menu__item ${openIndex === i ? 'nav-menu__item--open' : ''} ${location.pathname === menuRoutes[i] ? 'nav-menu__item--active' : ''}`}
             onMouseEnter={() => handleMouseEnter(i)}
             onMouseLeave={handleMouseLeave}
           >
-            <span className="nav-menu__label">{section.label}</span>
+            {i === 0 ? (
+              <Link to="/buy" className="nav-menu__label">{section.label}</Link>
+            ) : (
+              <span className="nav-menu__label">{section.label}</span>
+            )}
 
             {openIndex === i && (
               <div className={`nav-menu__dropdown ${section.columns ? "nav-menu__dropdown--cols" : ""}`}>

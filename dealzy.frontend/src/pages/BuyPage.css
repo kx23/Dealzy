@@ -1,0 +1,106 @@
+.buy-page__hero {
+    width: 100%;
+    height: 390px;
+    background: linear-gradient(135deg, #BBDEFB 0%, #90CAF9 40%, #64B5F6 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 24px;
+    overflow: visible;
+}
+
+.buy-page__cards {
+    display: grid;
+    grid-template-columns: repeat(4, 220px);
+    grid-template-rows: 90px;
+    gap: 20px;
+    align-items: start;
+}
+
+.buy-card__wrap {
+    position: relative;
+    height: 90px;
+}
+
+.buy-card {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    border-radius: 12px;
+    padding: 24px 28px;
+    box-shadow: 0 4px 20px rgba(6, 30, 74, 0.1);
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    transition: box-shadow 0.2s;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.buy-card:hover {
+    box-shadow: 0 8px 32px rgba(6, 30, 74, 0.16);
+    z-index: 2;
+    overflow: visible;
+}
+
+.buy-card__header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-shrink: 0;
+}
+
+.buy-card__icon {
+    flex-shrink: 0;
+}
+
+.buy-card__title {
+    font-family: "Rubik", sans-serif;
+    font-weight: 600;
+    font-size: 17px;
+    color: #061E4A;
+    line-height: 1.2;
+}
+
+.buy-card__sub {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    border-top: 1px solid #e8e8e8;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.25s ease, opacity 0.2s ease, padding-top 0.25s ease, margin-top 0.25s ease;
+    padding-top: 0;
+    margin-top: 0;
+    background: #fff;
+    border-radius: 0 0 12px 12px;
+}
+
+.buy-card:hover .buy-card__sub {
+    max-height: 200px;
+    opacity: 1;
+    padding-top: 14px;
+    margin-top: 16px;
+}
+
+.buy-card__sub-link {
+    font-family: "Rubik", sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: #444;
+    text-decoration: none;
+    transition: color 0.15s;
+    display: block;
+    padding: 2px 0;
+}
+
+.buy-card__sub-link:hover {
+    color: #136EF3;
+    text-decoration: none;
+}

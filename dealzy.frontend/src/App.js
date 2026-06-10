@@ -7,6 +7,7 @@ import AddAdPage from './pages/AddAdPage';
 import Navbar from './components/Navbar';
 import AdDetailPage from './pages/AdDetailPage';
 import CategoryPage from './pages/CategoryPage';
+import BuyPage from './pages/BuyPage';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
                 <Route path="/addad" element={<AddAdPage />} />
                 <Route path="/ad/:id" element={<AdDetailPage />} />
                 <Route path="/category/:categoryId" element={<CategoryPage />} />
+                <Route path="/buy" element={<BuyPage />} />
             </Routes>
         </Router>
     );
