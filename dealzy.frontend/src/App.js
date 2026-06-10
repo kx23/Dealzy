@@ -8,6 +8,9 @@ import Navbar from './components/Navbar';
 import AdDetailPage from './pages/AdDetailPage';
 import CategoryPage from './pages/CategoryPage';
 import BuyPage from './pages/BuyPage';
+import RentPage from './pages/RentPage';
+import DailyPage from './pages/DailyPage';
+import CommercialPage from './pages/CommercialPage';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -22,6 +25,9 @@ function App() {
                 <Route path="/ad/:id" element={<AdDetailPage />} />
                 <Route path="/category/:categoryId" element={<CategoryPage />} />
                 <Route path="/buy" element={<BuyPage />} />
+                <Route path="/rent" element={<RentPage />} />
+                <Route path="/daily" element={<DailyPage />} />
+                <Route path="/commercial" element={<CommercialPage />} />
             </Routes>
         </Router>
     );

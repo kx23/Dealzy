@@ -17,8 +17,14 @@ public class ApplicationDbContext : IdentityDbContext<User>
     public DbSet<RealEstateAd> RealEstateAds { get; set; }
     public DbSet<HouseAd> HouseAds { get; set; }
     public DbSet<ApartmentAd> ApartmentAds { get; set; }
-    public DbSet<CommercialBuildingAd> CommercialBuildingAds { get; set; }
+    public DbSet<OfficeAd> OfficeAds { get; set; }
+    public DbSet<RetailAd> RetailAds { get; set; }
+    public DbSet<WarehouseAd> WarehouseAds { get; set; }
+    public DbSet<BusinessAd> BusinessAds { get; set; }
+    public DbSet<CoworkingAd> CoworkingAds { get; set; }
     public DbSet<LandPlotAd> LandPlotAds { get; set; }
+    public DbSet<GarageAd> GarageAds { get; set; }
+    public DbSet<RoomAd> RoomAds { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

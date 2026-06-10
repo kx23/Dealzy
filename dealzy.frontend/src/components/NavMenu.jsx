@@ -88,8 +88,8 @@ const NavMenu = () => {
             onMouseEnter={() => handleMouseEnter(i)}
             onMouseLeave={handleMouseLeave}
           >
-            {i === 0 ? (
-              <Link to="/buy" className="nav-menu__label">{section.label}</Link>
+            {i === 0 || i === 1 || i === 2 || i === 3 ? (
+              <Link to={menuRoutes[i]} className="nav-menu__label">{section.label}</Link>
             ) : (
               <span className="nav-menu__label">{section.label}</span>
             )}

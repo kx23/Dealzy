@@ -29,9 +29,9 @@ public class AdsController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<Ad>> GetAd(string id)
+    public async Task<ActionResult<Ad>> GetAd(Guid id)
     {
-        var ad = await _context.Ads.FindAsync(new Guid(id));
+        var ad = await _context.Ads.FindAsync(id);
         if (ad == null) return NotFound();
         return ad;
     }
@@ -118,9 +118,9 @@ public class AdsController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateAd(string id, Ad ad)
+    public async Task<IActionResult> UpdateAd(Guid id, Ad ad)
     {
-        if (id != ad.Id.ToString()) return BadRequest();
+        if (id != ad.Id) return BadRequest();
         _context.Entry(ad).State = EntityState.Modified;
         await _context.SaveChangesAsync();
         return Ok(ad);
@@ -146,7 +146,7 @@ public class AdsController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteAd(string id)
+    public async Task<IActionResult> DeleteAd(Guid id)
     {
         var ad = await _context.Ads.FindAsync(id);
         if (ad == null) return NotFound();
