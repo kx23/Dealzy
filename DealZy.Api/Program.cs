@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Resend;
 using System.Text;
 
 namespace DealZy.Api;
@@ -38,6 +39,16 @@ public class Program
             });
 
         builder.Services.AddScoped<IGeocodingService, GeocodingService>();
+
+        // Resend email (API key required in production)
+        builder.Services.AddOptions();
+        builder.Services.AddHttpClient<ResendClient>();
+        builder.Services.Configure<ResendClientOptions>(o =>
+        {
+            o.ApiToken = builder.Configuration["Email:ResendApiKey"] ?? "re_placeholder";
+        });
+        builder.Services.AddTransient<IResend, ResendClient>();
+        builder.Services.AddScoped<IEmailService, EmailService>();
 
         builder.Services.AddControllers(options =>
         {
@@ -72,7 +83,8 @@ public class Program
             options.AddPolicy("AllowFrontend", policy =>
                 policy.WithOrigins("http://localhost:3000")
                     .AllowAnyMethod()
-                    .AllowAnyHeader());
+                    .AllowAnyHeader()
+                    .AllowCredentials());
         });
 
         var app = builder.Build();

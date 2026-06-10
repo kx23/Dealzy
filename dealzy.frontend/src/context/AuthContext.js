@@ -1,31 +1,86 @@
-﻿import React, { createContext, useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect } from 'react';
+import { jwtDecode } from 'jwt-decode';
+import { authService } from '../api';
 
-export const AuthContext = createContext();
+const AuthContext = createContext(null);
+
+const isTokenExpired = (token) => {
+    try {
+        const { exp } = jwtDecode(token);
+        return Date.now() >= exp * 1000;
+    } catch {
+        return true;
+    }
+};
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
+    const [token, setToken] = useState(null);
+    const [loading, setLoading] = useState(true);
 
-    // при загрузке приложения проверяем localStorage
     useEffect(() => {
-        const savedUser = localStorage.getItem("user");
-        if (savedUser) {
-            setUser(JSON.parse(savedUser));
-        }
+        const init = async () => {
+            const savedToken = localStorage.getItem('token');
+            if (!savedToken) { setLoading(false); return; }
+
+            let activeToken = savedToken;
+            if (isTokenExpired(savedToken)) {
+                try {
+                    const { data } = await authService.refresh();
+                    activeToken = data.token;
+                    localStorage.setItem('token', activeToken);
+                } catch {
+                    localStorage.removeItem('token');
+                    setLoading(false);
+                    return;
+                }
+            }
+
+            const decoded = jwtDecode(activeToken);
+            setToken(activeToken);
+            setUser({ id: decoded.sub, name: decoded.unique_name, email: decoded.email });
+            setLoading(false);
+        };
+        init();
     }, []);
 
-    const login = (userData) => {
-        setUser(userData);
-        localStorage.setItem("user", JSON.stringify(userData));
+    useEffect(() => {
+        const handleForceLogout = () => logout();
+        window.addEventListener('auth:logout', handleForceLogout);
+        return () => window.removeEventListener('auth:logout', handleForceLogout);
+    }, []);
+
+    useEffect(() => {
+        const handle = (e) => {
+            const decoded = jwtDecode(e.detail.token);
+            setToken(e.detail.token);
+            setUser({ id: decoded.sub, name: decoded.unique_name, email: decoded.email });
+        };
+        window.addEventListener('auth:tokenRefreshed', handle);
+        return () => window.removeEventListener('auth:tokenRefreshed', handle);
+    }, []);
+
+    const login = (newToken) => {
+        localStorage.setItem('token', newToken);
+        const decoded = jwtDecode(newToken);
+        setToken(newToken);
+        setUser({ id: decoded.sub, name: decoded.unique_name, email: decoded.email });
     };
 
-    const logout = () => {
+    const logout = async () => {
+        try { await authService.logout(); } catch { /* ignore */ }
+        localStorage.removeItem('token');
+        setToken(null);
         setUser(null);
-        localStorage.removeItem("user");
     };
+
+    if (loading) return <div className="page-placeholder">...</div>;
 
     return (
-        <AuthContext.Provider value={{ user, login, logout }}>
+        <AuthContext.Provider value={{ user, token, login, logout }}>
             {children}
         </AuthContext.Provider>
     );
 };
+
+export const useAuth = () => useContext(AuthContext);

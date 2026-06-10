@@ -10,6 +10,7 @@
   margin: 0 auto;
   padding: 0 clamp(24px, 13.5vw, 260px);
   display: flex;
+  justify-content: center;
 }
 
 .nav-menu__item {
@@ -18,22 +19,15 @@
   align-items: center;
 }
 
-.nav-menu__item + .nav-menu__item::before {
-  content: "";
-  display: block;
-  width: 2px;
-  height: 35px;
-  background: #061E4A;
-  flex-shrink: 0;
-}
+
 
 .nav-menu__label {
   display: block;
   padding: 19px 24px;
   font-family: "Rubik", sans-serif;
-  font-weight: 600;
+  font-weight: 400;
   font-size: 16px;
-  color: #196BD4;
+  color: #061E4A;
   cursor: pointer;
   white-space: nowrap;
   user-select: none;

@@ -9,6 +9,7 @@ public class ApplicationDbContext : IdentityDbContext<User>
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
+    public DbSet<RefreshToken> RefreshTokens { get; set; }
     public DbSet<Ad> Ads { get; set; }
     public DbSet<Category> Categories { get; set; }
     public DbSet<Address> Addresses { get; set; }
