@@ -38,6 +38,16 @@
   color: #061E4A;
 }
 
+.nav-menu__item--open::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: #061E4A;
+}
+
 .nav-menu__label:hover {
   color: #061E4A;
 }
