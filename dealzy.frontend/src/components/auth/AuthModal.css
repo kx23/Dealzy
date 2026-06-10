@@ -1,0 +1,148 @@
+.auth-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.auth-modal {
+    background: var(--bg-card, #fff);
+    font-family: 'Roboto', sans-serif;
+    border-radius: 8px;
+    width: 520px;
+    max-width: 95vw;
+    min-height: 460px;
+    padding: 16px;
+    position: relative;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.auth-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-bottom: 40px;
+}
+
+.auth-modal .close-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    font-size: 20px;
+    line-height: 1;
+    color: #888;
+}
+
+.auth-modal .close-button:hover { color: #333; }
+
+.auth-modal h2 {
+    text-align: center;
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--text-primary, #1a1a1a);
+    margin: 0 0 32px 0;
+}
+
+.auth-modal .auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+}
+
+.auth-modal .form-group { width: 256px; }
+
+.auth-modal .form-input {
+    width: 100%;
+    height: 48px;
+    padding: 0 14px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    outline: none;
+    font-size: 14px;
+    background: #f5f5f5;
+    color: var(--text-primary, #1a1a1a);
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+}
+
+.auth-modal .form-input:focus {
+    border-color: var(--color-primary, #2563EB);
+    background: #fff;
+}
+
+.auth-modal .form-input::placeholder { color: #9e9e9e; }
+
+.auth-modal .submit-button {
+    width: 256px;
+    background: var(--color-primary, #2563EB);
+    color: #fff;
+    border: none;
+    padding: 14px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 24px;
+    transition: opacity 0.2s;
+}
+
+.auth-modal .submit-button:hover { opacity: 0.87; }
+.auth-modal .submit-button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.auth-modal .switch-mode {
+    text-align: center;
+    margin-top: 16px;
+    color: #757575;
+    font-size: 14px;
+}
+
+.auth-modal .switch-mode button {
+    background: none;
+    border: none;
+    color: var(--color-primary, #2563EB);
+    cursor: pointer;
+    font-size: 14px;
+    text-decoration: underline;
+    padding: 0;
+}
+
+.auth-modal .error-message {
+    color: #d32f2f;
+    font-size: 13px;
+    text-align: center;
+    width: 256px;
+}
+
+.auth-modal .unconfirmed-message {
+    color: #f57c00;
+    text-align: center;
+    font-size: 14px;
+    width: 256px;
+}
+
+.auth-modal .resend-button {
+    background: none;
+    border: none;
+    color: var(--color-primary, #2563EB);
+    cursor: pointer;
+    padding: 0;
+    font-size: inherit;
+    text-decoration: underline;
+}
+
+.auth-success-message {
+    text-align: center;
+    padding: 24px 0;
+}
+
+.auth-success-icon { font-size: 40px; margin-bottom: 12px; }
+.auth-success-text { color: var(--text-primary, #1a1a1a); margin-bottom: 8px; font-size: 16px; }
+.auth-success-subtext { color: #757575; font-size: 14px; }
