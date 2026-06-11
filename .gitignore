@@ -79,3 +79,5 @@ lerna-debug.log*
 
 ### Agent Files ###
 AGENTS.md
+
+appsettings*.json
