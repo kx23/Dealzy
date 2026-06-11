@@ -22,19 +22,22 @@ public class AuthController : ControllerBase
     private readonly ApplicationDbContext _context;
     private readonly ILogger<AuthController> _logger;
     private readonly IEmailService _emailService;
+    private readonly IWebHostEnvironment _env;
 
     public AuthController(
         UserManager<User> userManager,
         IConfiguration configuration,
         ApplicationDbContext context,
         ILogger<AuthController> logger,
-        IEmailService emailService)
+        IEmailService emailService,
+        IWebHostEnvironment env)
     {
         _userManager = userManager;
         _configuration = configuration;
         _context = context;
         _logger = logger;
         _emailService = emailService;
+        _env = env;
     }
 
     [HttpPost("register")]
@@ -146,14 +149,7 @@ public class AuthController : ControllerBase
             }
         }
 
-        Response.Cookies.Delete("refreshToken", new CookieOptions
-        {
-            HttpOnly = true,
-            Secure = true,
-            SameSite = SameSiteMode.Strict,
-            Path = "/api/auth"
-        });
-
+        Response.Cookies.Delete("refreshToken", BuildCookieOptions(expired: true));
         return Ok();
     }
 
@@ -213,17 +209,26 @@ public class AuthController : ControllerBase
         return refreshToken;
     }
 
-    private void SetRefreshTokenCookie(string token)
+    private CookieOptions BuildCookieOptions(bool expired = false)
     {
         var days = int.Parse(_configuration.GetSection("Jwt")["RefreshTokenExpirationDays"] ?? "30");
-        Response.Cookies.Append("refreshToken", token, new CookieOptions
+        var isDev = _env.IsDevelopment();
+
+        return new CookieOptions
         {
             HttpOnly = true,
-            Secure = true,
-            SameSite = SameSiteMode.Strict,
-            Path = "/api/auth",
-            Expires = DateTimeOffset.UtcNow.AddDays(days)
-        });
+            Secure   = !isDev,
+            SameSite = isDev ? SameSiteMode.Lax : SameSiteMode.None,
+            Path     = "/api/auth",
+            Expires  = expired
+                ? DateTimeOffset.UtcNow.AddDays(-1)
+                : DateTimeOffset.UtcNow.AddDays(days)
+        };
+    }
+
+    private void SetRefreshTokenCookie(string token)
+    {
+        Response.Cookies.Append("refreshToken", token, BuildCookieOptions());
     }
 }
 

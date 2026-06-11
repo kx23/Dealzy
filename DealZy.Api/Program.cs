@@ -40,7 +40,6 @@ public class Program
 
         builder.Services.AddScoped<IGeocodingService, GeocodingService>();
 
-        // Resend email (API key required in production)
         builder.Services.AddOptions();
         builder.Services.AddHttpClient<ResendClient>();
         builder.Services.Configure<ResendClientOptions>(o =>
@@ -78,10 +77,11 @@ public class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
+        var frontendUrl = builder.Configuration["Frontend:Url"]!;
         builder.Services.AddCors(options =>
         {
             options.AddPolicy("AllowFrontend", policy =>
-                policy.WithOrigins("http://localhost:3000")
+                policy.WithOrigins(frontendUrl)
                     .AllowAnyMethod()
                     .AllowAnyHeader()
                     .AllowCredentials());
@@ -106,9 +106,12 @@ public class Program
             app.UseSwagger();
             app.UseSwaggerUI();
         }
+        else
+        {
+            app.UseHttpsRedirection();
+        }
 
         app.UseCors("AllowFrontend");
-        app.UseHttpsRedirection();
         app.UseAuthentication();
         app.UseAuthorization();
         app.MapControllers();
