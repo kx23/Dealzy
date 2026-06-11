@@ -18,8 +18,7 @@ public class AdConfiguration : IEntityTypeConfiguration<Ad>
         builder.Property(a => a.Price)
             .HasPrecision(18, 2);
 
-        builder.HasOne(a => a.Category)
-            .WithMany(c => c.Ads)
-            .HasForeignKey(a => a.CategoryId);
+        builder.Property(a => a.DealType)
+            .HasConversion<string>();
     }
 }

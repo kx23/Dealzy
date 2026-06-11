@@ -21,7 +21,7 @@ const Navbar = () => {
                         </Link>
 
                         <div className="site-header__actions">
-                            <Link to="/addad" className="site-header__btn site-header__btn--outline">
+                            <Link to="/create" className="site-header__btn site-header__btn--outline">
                                 Создать объявление
                             </Link>
                             {user ? (

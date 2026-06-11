@@ -18,5 +18,4 @@ public class Category
     public Category Parent { get; set; }
 
     public ICollection<Category> Children { get; set; } = new List<Category>();
-    public ICollection<Ad> Ads { get; set; } = new List<Ad>();
 }

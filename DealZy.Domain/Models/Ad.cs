@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using DealZy.Domain.Enums;
 
 namespace DealZy.Domain.Models;
 
@@ -21,6 +22,5 @@ public class Ad
     [Url]
     public string ImageUrl { get; set; }
 
-    public Guid CategoryId { get; set; }
-    public Category Category { get; set; }
+    public DealType DealType { get; set; }
 }

@@ -1,3 +1,5 @@
+using DealZy.Domain.Enums;
+
 namespace DealZy.Domain.DTO.AdDTO;
 
 public class AdDetailDto
@@ -7,16 +9,9 @@ public class AdDetailDto
     public string Description { get; set; }
     public decimal Price { get; set; }
     public string ImageUrl { get; set; }
-    public Guid CategoryId { get; set; }
-    public string CategoryName { get; set; }
-
-    public double? Area { get; set; }
-    public string SellerType { get; set; }
-
-    public double? HouseArea { get; set; }
-    public double? LandArea { get; set; }
-    public int? Floors { get; set; }
-    public int? Rooms { get; set; }
-
+    public DealType DealType { get; set; }
+    public string PropertyKind { get; set; }
+    public double Area { get; set; }
+    public SellerType? SellerType { get; set; }
     public AddressDto Address { get; set; }
 }

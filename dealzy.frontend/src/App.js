@@ -4,6 +4,7 @@ import HomePage from './pages/HomePage';
 import RegisterPage from './pages/RegisterPage';
 import LoginPage from './pages/LoginPage';
 import AddAdPage from './pages/AddAdPage';
+import CreateAdPage from './pages/CreateAdPage/CreateAdPage';
 import Navbar from './components/Navbar';
 import AdDetailPage from './pages/AdDetailPage';
 import CategoryPage from './pages/CategoryPage';
@@ -22,6 +23,7 @@ function App() {
                 <Route path="/register" element={<RegisterPage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/addad" element={<AddAdPage />} />
+                <Route path="/create" element={<CreateAdPage />} />
                 <Route path="/ad/:id" element={<AdDetailPage />} />
                 <Route path="/category/:categoryId" element={<CategoryPage />} />
                 <Route path="/buy" element={<BuyPage />} />

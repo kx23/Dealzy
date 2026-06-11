@@ -1,3 +1,4 @@
+using DealZy.Api.Converters;
 using DealZy.Domain.Models;
 using DealZy.Infrastructure.Data;
 using DealZy.Infrastructure.Services;
@@ -52,6 +53,10 @@ public class Program
         builder.Services.AddControllers(options =>
         {
             options.InputFormatters.Insert(0, MyJPIF.GetJsonPatchInputFormatter());
+        })
+        .AddNewtonsoftJson(options =>
+        {
+            options.SerializerSettings.Converters.Add(new CreateAdBaseDtoConverter());
         });
 
         builder.Services.AddAuthentication(options =>

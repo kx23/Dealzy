@@ -1,0 +1,282 @@
+.create-ad {
+  min-height: 100vh;
+  background: #f7f9fc;
+  padding: 40px 0 80px;
+}
+
+.create-ad__container {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.create-ad__title {
+  font-family: 'Rubik', sans-serif;
+  font-size: 28px;
+  font-weight: 600;
+  color: #061E4A;
+  margin: 0 0 32px;
+}
+
+/* --- deal buttons --- */
+
+.create-ad__deal-row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.create-ad__deal-btn {
+  padding: 10px 28px;
+  border: 2px solid #d0d8e8;
+  border-radius: 8px;
+  background: #fff;
+  font-family: 'Rubik', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: #061E4A;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s, color 0.15s;
+}
+
+.create-ad__deal-btn:hover {
+  border-color: #136EF3;
+  color: #136EF3;
+}
+
+.create-ad__deal-btn--active {
+  border-color: #136EF3;
+  background: #136EF3;
+  color: #fff;
+}
+
+.create-ad__deal-btn--active:hover {
+  color: #fff;
+}
+
+/* --- category panel --- */
+
+.create-ad__categories {
+  display: flex;
+  gap: 32px;
+  background: #fff;
+  border: 1px solid #e0e8f0;
+  border-radius: 10px;
+  padding: 20px 24px;
+  margin-top: 12px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+
+.create-ad__cat-group {
+  display: flex;
+  flex-direction: column;
+  min-width: 180px;
+}
+
+.create-ad__cat-heading {
+  font-family: 'Rubik', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: #061E4A;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.create-ad__cat-divider {
+  height: 1px;
+  background: #e0e8f0;
+  margin-bottom: 10px;
+}
+
+.create-ad__cat-items {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.create-ad__cat-btn {
+  background: none;
+  border: none;
+  text-align: left;
+  padding: 7px 8px;
+  font-family: 'Rubik', sans-serif;
+  font-size: 14px;
+  color: #1a1a1a;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s;
+}
+
+.create-ad__cat-btn:hover {
+  background: #EBF3FF;
+  color: #136EF3;
+}
+
+.create-ad__cat-btn--active {
+  background: #EBF3FF;
+  color: #136EF3;
+  font-weight: 500;
+}
+
+/* --- form --- */
+
+.create-ad__form {
+  background: #fff;
+  border: 1px solid #e0e8f0;
+  border-radius: 10px;
+  padding: 28px 28px 32px;
+  margin-top: 16px;
+}
+
+.create-ad__form-title {
+  font-family: 'Rubik', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: #061E4A;
+  margin: 0 0 24px;
+}
+
+.create-ad__field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+
+.create-ad__label {
+  font-family: 'Rubik', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #3a4a6b;
+}
+
+.create-ad__required {
+  color: #e03e3e;
+}
+
+.create-ad__input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1.5px solid #d0d8e8;
+  border-radius: 7px;
+  font-family: 'Rubik', sans-serif;
+  font-size: 15px;
+  color: #1a1a1a;
+  background: #fff;
+  transition: border-color 0.15s;
+  outline: none;
+}
+
+.create-ad__input:focus {
+  border-color: #136EF3;
+}
+
+.create-ad__input--short {
+  max-width: 200px;
+}
+
+.create-ad__input--textarea {
+  resize: vertical;
+  max-width: 100%;
+  min-height: 96px;
+}
+
+.create-ad__input--select {
+  max-width: 320px;
+  appearance: auto;
+}
+
+/* --- toggle --- */
+
+.create-ad__toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  width: fit-content;
+}
+
+.create-ad__toggle input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.create-ad__toggle-track {
+  position: relative;
+  width: 40px;
+  height: 22px;
+  background: #d0d8e8;
+  border-radius: 11px;
+  transition: background 0.2s;
+}
+
+.create-ad__toggle input:checked + .create-ad__toggle-track {
+  background: #136EF3;
+}
+
+.create-ad__toggle-thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 16px;
+  height: 16px;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform 0.2s;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.create-ad__toggle input:checked ~ .create-ad__toggle-track .create-ad__toggle-thumb {
+  transform: translateX(18px);
+}
+
+/* --- submit --- */
+
+.create-ad__submit {
+  margin-top: 8px;
+  padding: 12px 40px;
+  background: #136EF3;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-family: 'Rubik', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.create-ad__submit:hover:not(:disabled) {
+  background: #0d5bcc;
+}
+
+.create-ad__submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* --- result message --- */
+
+.create-ad__result {
+  padding: 12px 16px;
+  border-radius: 7px;
+  font-family: 'Rubik', sans-serif;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+.create-ad__result--ok {
+  background: #e6f9ee;
+  color: #1a7a40;
+  border: 1px solid #b2eac8;
+}
+
+.create-ad__result--err {
+  background: #fef0f0;
+  color: #c0392b;
+  border: 1px solid #f5c0b8;
+}
