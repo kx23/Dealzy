@@ -19,7 +19,6 @@ public class Ad
     [Range(0, 1000000)]
     public decimal Price { get; set; }
 
-    [Url]
     public string ImageUrl { get; set; }
 
     public DealType DealType { get; set; }

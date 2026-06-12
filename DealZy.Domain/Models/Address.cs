@@ -18,20 +18,20 @@ public class Address
     public double Longitude { get; set; }
 
     [MaxLength(100)]
-    public string City { get; set; }
+    public string? City { get; set; }
 
     [MaxLength(100)]
-    public string Street { get; set; }
+    public string? Street { get; set; }
 
     [MaxLength(20)]
-    public string HouseNumber { get; set; }
+    public string? HouseNumber { get; set; }
 
     [MaxLength(20)]
-    public string PostalCode { get; set; }
+    public string? PostalCode { get; set; }
 
     [MaxLength(100)]
-    public string Country { get; set; }
+    public string? Country { get; set; }
 
     [MaxLength(100)]
-    public string State { get; set; }
+    public string? State { get; set; }
 }

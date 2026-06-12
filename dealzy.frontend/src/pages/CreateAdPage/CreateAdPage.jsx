@@ -201,7 +201,6 @@ const FieldRow = ({ field, value, onChange }) => {
 
       {type === 'address' && (
         <AddressAutocomplete
-          value={value}
           onAddressSelect={addr => onChange(name, addr)}
         />
       )}

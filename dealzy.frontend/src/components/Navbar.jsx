@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import DealzyLogo from '../assets/DealzyLogo';
 import NavMenu from './NavMenu';
@@ -9,6 +9,15 @@ import './Navbar.css';
 const Navbar = () => {
     const { user, logout } = useAuth();
     const [authOpen, setAuthOpen] = useState(false);
+    const navigate = useNavigate();
+
+    const handleCreateAd = () => {
+        if (user) {
+            navigate('/create');
+        } else {
+            setAuthOpen(true);
+        }
+    };
 
     return (
         <>
@@ -21,9 +30,9 @@ const Navbar = () => {
                         </Link>
 
                         <div className="site-header__actions">
-                            <Link to="/create" className="site-header__btn site-header__btn--outline">
+                            <button onClick={handleCreateAd} className="site-header__btn site-header__btn--outline">
                                 Создать объявление
-                            </Link>
+                            </button>
                             {user ? (
                                 <button
                                     className="site-header__btn site-header__btn--ghost"

@@ -5,7 +5,7 @@ namespace DealZy.Domain.DTO.AdDTO;
 public class AddressDto
 {
     [JsonPropertyName("displayName")]
-    public string DisplayName { get; set; }
+    public string? DisplayName { get; set; }
 
     [JsonPropertyName("latitude")]
     public double Latitude { get; set; }
@@ -14,20 +14,20 @@ public class AddressDto
     public double Longitude { get; set; }
 
     [JsonPropertyName("city")]
-    public string City { get; set; }
+    public string? City { get; set; }
 
     [JsonPropertyName("street")]
-    public string Street { get; set; }
+    public string? Street { get; set; }
 
     [JsonPropertyName("houseNumber")]
-    public string HouseNumber { get; set; }
+    public string? HouseNumber { get; set; }
 
     [JsonPropertyName("postalCode")]
-    public string PostalCode { get; set; }
+    public string? PostalCode { get; set; }
 
     [JsonPropertyName("country")]
-    public string Country { get; set; }
+    public string? Country { get; set; }
 
     [JsonPropertyName("state")]
-    public string State { get; set; }
+    public string? State { get; set; }
 }

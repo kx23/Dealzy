@@ -17,6 +17,30 @@ public class GeocodingController : ControllerBase
         _logger = logger;
     }
 
+    [HttpGet("search-city")]
+    [ProducesResponseType(typeof(List<AddressResult>), StatusCodes.Status200OK)]
+    public async Task<ActionResult<List<AddressResult>>> SearchCity([FromQuery] string query)
+    {
+        if (string.IsNullOrWhiteSpace(query) || query.Length < 2)
+            return BadRequest(new { error = "Query must be at least 2 characters long" });
+
+        var results = await _geocodingService.SearchCityAsync(query);
+        return Ok(results);
+    }
+
+    [HttpGet("search-street")]
+    [ProducesResponseType(typeof(List<AddressResult>), StatusCodes.Status200OK)]
+    public async Task<ActionResult<List<AddressResult>>> SearchStreet([FromQuery] string query, [FromQuery] string city)
+    {
+        if (string.IsNullOrWhiteSpace(query) || query.Length < 2)
+            return BadRequest(new { error = "Query must be at least 2 characters long" });
+        if (string.IsNullOrWhiteSpace(city))
+            return BadRequest(new { error = "City is required" });
+
+        var results = await _geocodingService.SearchStreetAsync(query, city);
+        return Ok(results);
+    }
+
     [HttpGet("search")]
     [ProducesResponseType(typeof(List<AddressResult>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -34,6 +58,40 @@ public class GeocodingController : ControllerBase
         {
             _logger.LogError(ex, "Error processing geocoding request: {Query}", query);
             return StatusCode(500, new { error = "Internal server error while searching address" });
+        }
+    }
+
+    [HttpGet("geocode-by-text")]
+    [ProducesResponseType(typeof(AddressResult), StatusCodes.Status200OK)]
+    public async Task<ActionResult<AddressResult>> GeocodeByText([FromQuery] string query, [FromQuery] double? llLon = null, [FromQuery] double? llLat = null)
+    {
+        if (string.IsNullOrWhiteSpace(query))
+            return BadRequest(new { error = "Query is required" });
+
+        var result = await _geocodingService.GeocodeByTextAsync(query, llLon, llLat);
+        if (result == null) return NotFound();
+        return Ok(result);
+    }
+
+    [HttpGet("geocode")]
+    [ProducesResponseType(typeof(AddressResult), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<AddressResult>> Geocode([FromQuery] string uri)
+    {
+        if (string.IsNullOrWhiteSpace(uri))
+            return BadRequest(new { error = "Uri is required" });
+
+        try
+        {
+            var result = await _geocodingService.GeocodeByUriAsync(uri);
+            if (result == null) return NotFound();
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error processing geocode request: {Uri}", uri);
+            return StatusCode(500, new { error = "Internal server error while geocoding" });
         }
     }
 }
