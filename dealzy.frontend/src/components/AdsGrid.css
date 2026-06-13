@@ -1,0 +1,98 @@
+.ads-grid {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 40px 24px 60px;
+}
+
+.ads-grid__title {
+    font-family: 'Rubik', sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: #061E4A;
+    margin: 0 0 24px;
+}
+
+.ads-grid__list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.ads-grid__loading,
+.ads-grid__empty {
+    font-family: 'Rubik', sans-serif;
+    font-size: 15px;
+    color: #9aa0ad;
+    padding: 40px 0;
+    text-align: center;
+}
+
+/* Card */
+.ad-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(6, 30, 74, 0.07);
+    overflow: hidden;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.ad-card:hover {
+    box-shadow: 0 6px 24px rgba(6, 30, 74, 0.13);
+    transform: translateY(-2px);
+}
+
+.ad-card__photo {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    background: #e8edf5;
+    display: block;
+}
+
+.ad-card__photo--placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 4 / 3;
+    background: #e8edf5;
+    color: #b0b8c9;
+    font-size: 13px;
+    font-family: 'Rubik', sans-serif;
+}
+
+.ad-card__body {
+    padding: 14px 16px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+}
+
+.ad-card__kind {
+    font-family: 'Rubik', sans-serif;
+    font-size: 11px;
+    color: #9aa0ad;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.ad-card__price {
+    font-family: 'Rubik', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #061E4A;
+}
+
+.ad-card__title {
+    font-family: 'Rubik', sans-serif;
+    font-size: 14px;
+    color: #444;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}

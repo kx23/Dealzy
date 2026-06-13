@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import AddressAutocomplete from '../../components/AddressAutocomplete';
-import { DEAL_BUTTONS, CATEGORY_GROUPS, FIELDS_BY_KIND } from './adFormConfig';
+import { DEAL_BUTTONS, CATEGORY_GROUPS, FIELDS_BY_KIND_BUY, FIELDS_BY_KIND_RENT, FIELDS_BY_KIND_DAILY } from './adFormConfig';
 import './CreateAdPage.css';
 
 const API_BASE = 'http://localhost:5176';
@@ -10,9 +11,11 @@ const CreateAdPage = () => {
   const [selected, setSelected]     = useState(null); // { propertyKind, dealType, label }
   const [formData, setFormData]     = useState({});
   const [submitting, setSubmitting] = useState(false);
-  const [result, setResult]         = useState(null); // { ok, message }
+  const [result, setResult]         = useState(null);
+  const navigate = useNavigate();
 
-  const fields = selected ? (FIELDS_BY_KIND[selected.propertyKind] ?? []) : [];
+  const configMap = dealKey === 'buy' ? FIELDS_BY_KIND_BUY : dealKey === 'daily' ? FIELDS_BY_KIND_DAILY : FIELDS_BY_KIND_RENT;
+  const fields = selected ? (configMap[selected.propertyKind] ?? []) : [];
 
   const handleDealClick = (key) => {
     if (dealKey === key) return;
@@ -47,8 +50,8 @@ const CreateAdPage = () => {
         body: JSON.stringify(payload),
       });
       if (res.ok) {
-        setResult({ ok: true, message: 'Объявление создано!' });
-        setFormData({});
+        const data = await res.json();
+        navigate('/ad/' + data.id);
       } else {
         const text = await res.text();
         setResult({ ok: false, message: `Ошибка: ${text}` });

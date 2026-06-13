@@ -1,5 +1,6 @@
 import React from 'react';
 import './DailyPage.css';
+import AdsGrid from '../components/AdsGrid';
 
 const categories = [
     { label: 'Квартира' },
@@ -46,7 +47,7 @@ const icons = {
 
 const DailyPage = () => {
     return (
-        <div className="daily-page">
+        <>
             <div className="daily-page__hero">
                 <div className="daily-page__cards">
                     {categories.map((cat) => (
@@ -61,7 +62,8 @@ const DailyPage = () => {
                     ))}
                 </div>
             </div>
-        </div>
+        <AdsGrid dealTypes={[2]} title="Посуточная аренда" />
+    </>
     );
 };
 

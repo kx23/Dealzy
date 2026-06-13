@@ -22,9 +22,14 @@ public class AdsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<AdResponseDto>>> GetAds()
+    public async Task<ActionResult<IEnumerable<AdResponseDto>>> GetAds([FromQuery] DealType[]? dealType)
     {
-        var ads = await _context.Ads.ToListAsync();
+        var query = _context.Ads.AsQueryable();
+
+        if (dealType != null && dealType.Length > 0)
+            query = query.Where(a => dealType.Contains(a.DealType));
+
+        var ads = await query.ToListAsync();
         return Ok(ads.Select(a => new AdResponseDto
         {
             Id           = a.Id,

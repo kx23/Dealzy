@@ -1,0 +1,550 @@
+.ad-detail {
+    background: #f7f9fc;
+    min-height: 100vh;
+    padding-bottom: 60px;
+}
+
+.ad-detail__container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* Breadcrumbs */
+.ad-detail__breadcrumbs {
+    padding: 16px 0 12px;
+    font-family: 'Rubik', sans-serif;
+    font-size: 13px;
+    color: #888;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.ad-detail__breadcrumbs a {
+    color: #888;
+    text-decoration: none;
+    transition: color 0.15s;
+}
+
+.ad-detail__breadcrumbs a:hover {
+    color: #136EF3;
+}
+
+.ad-detail__breadcrumbs span {
+    color: #bbb;
+}
+
+/* Title */
+.ad-detail__title {
+    font-family: 'Rubik', sans-serif;
+    font-size: 26px;
+    font-weight: 600;
+    color: #061E4A;
+    margin: 0 0 20px;
+    line-height: 1.3;
+}
+
+/* Main layout */
+.ad-detail__body {
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: 24px;
+    align-items: start;
+}
+
+/* ─── LEFT COLUMN ─── */
+.ad-detail__left {}
+
+/* Gallery */
+.ad-detail__gallery {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 16px;
+}
+
+.ad-detail__main-photo-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: #e8edf5;
+    overflow: hidden;
+}
+
+.ad-detail__main-photo-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.ad-detail__no-photo {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #aaa;
+    font-family: 'Rubik', sans-serif;
+    font-size: 15px;
+}
+
+.ad-detail__gallery-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.45);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s;
+    z-index: 2;
+}
+
+.ad-detail__gallery-arrow:hover {
+    background: rgba(0,0,0,0.65);
+}
+
+.ad-detail__gallery-arrow svg {
+    width: 18px;
+    height: 18px;
+    stroke: #fff;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.ad-detail__gallery-arrow--prev { left: 14px; }
+.ad-detail__gallery-arrow--next { right: 14px; }
+
+.ad-detail__photo-count {
+    position: absolute;
+    bottom: 14px;
+    right: 14px;
+    background: rgba(0,0,0,0.55);
+    color: #fff;
+    font-family: 'Rubik', sans-serif;
+    font-size: 13px;
+    padding: 4px 10px;
+    border-radius: 20px;
+}
+
+.ad-detail__thumbs {
+    display: flex;
+    gap: 6px;
+    padding: 10px;
+    overflow-x: auto;
+    scrollbar-width: thin;
+}
+
+.ad-detail__thumb {
+    flex-shrink: 0;
+    width: 72px;
+    height: 52px;
+    border-radius: 6px;
+    overflow: hidden;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border-color 0.15s;
+}
+
+.ad-detail__thumb.active {
+    border-color: #136EF3;
+}
+
+.ad-detail__thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Characteristics */
+.ad-detail__section {
+    background: #fff;
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-bottom: 16px;
+}
+
+.ad-detail__section-title {
+    font-family: 'Rubik', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: #061E4A;
+    margin: 0 0 18px;
+}
+
+.ad-detail__chars {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px 24px;
+}
+
+.ad-detail__char {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.ad-detail__char-label {
+    font-family: 'Rubik', sans-serif;
+    font-size: 12px;
+    color: #9aa0ad;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.ad-detail__char-value {
+    font-family: 'Rubik', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: #061E4A;
+}
+
+/* Description */
+.ad-detail__description {
+    font-family: 'Rubik', sans-serif;
+    font-size: 15px;
+    color: #444;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    margin: 0;
+}
+
+/* ─── RIGHT COLUMN ─── */
+.ad-detail__right {
+    position: sticky;
+    top: 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Price card */
+.ad-detail__price-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 24px;
+}
+
+.ad-detail__price {
+    font-family: 'Rubik', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: #061E4A;
+    margin: 0 0 4px;
+}
+
+.ad-detail__price-period {
+    font-family: 'Rubik', sans-serif;
+    font-size: 14px;
+    color: #9aa0ad;
+    margin: 0 0 20px;
+}
+
+.ad-detail__price-per-m2 {
+    font-family: 'Rubik', sans-serif;
+    font-size: 14px;
+    color: #9aa0ad;
+    margin: 0 0 20px;
+}
+
+.ad-detail__price-track-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0 0 16px;
+    font-family: 'Rubik', sans-serif;
+    font-size: 13px;
+    color: #136EF3;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.ad-detail__offer-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.ad-detail__offer-input {
+    flex: 1;
+    height: 38px;
+    border: 1px solid #d8dde6;
+    border-radius: 8px;
+    padding: 0 12px;
+    font-family: 'Rubik', sans-serif;
+    font-size: 14px;
+    color: #061E4A;
+    outline: none;
+    transition: border-color 0.15s;
+}
+
+.ad-detail__offer-input:focus {
+    border-color: #136EF3;
+}
+
+.ad-detail__offer-submit {
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+    background: #136EF3;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s;
+    flex-shrink: 0;
+}
+
+.ad-detail__offer-submit:hover {
+    background: #0e5bcc;
+}
+
+.ad-detail__offer-submit svg {
+    width: 16px;
+    height: 16px;
+    stroke: #fff;
+    fill: none;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* Conditions table */
+.ad-detail__conditions {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border-top: 1px solid #f0f2f6;
+    padding-top: 16px;
+    margin-top: 4px;
+}
+
+.ad-detail__condition-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f2f6;
+    font-family: 'Rubik', sans-serif;
+    font-size: 13px;
+}
+
+.ad-detail__condition-row:last-child {
+    border-bottom: none;
+}
+
+.ad-detail__condition-label {
+    color: #9aa0ad;
+}
+
+.ad-detail__condition-value {
+    color: #061E4A;
+    font-weight: 500;
+    text-align: right;
+    max-width: 55%;
+}
+
+/* Author card */
+.ad-detail__author-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px 24px;
+}
+
+.ad-detail__agency {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #f0f2f6;
+}
+
+.ad-detail__agency-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #136EF3 0%, #5e9ff7 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-family: 'Rubik', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -0.5px;
+}
+
+.ad-detail__agency-info {}
+
+.ad-detail__agency-type {
+    font-family: 'Rubik', sans-serif;
+    font-size: 11px;
+    color: #9aa0ad;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0 0 2px;
+}
+
+.ad-detail__agency-name {
+    font-family: 'Rubik', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: #061E4A;
+    margin: 0;
+}
+
+.ad-detail__agency-badge {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-family: 'Rubik', sans-serif;
+    font-size: 11px;
+    color: #136EF3;
+    margin: 2px 0 0;
+}
+
+.ad-detail__agency-meta {
+    display: flex;
+    gap: 20px;
+    margin-top: 8px;
+}
+
+.ad-detail__agency-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.ad-detail__agency-meta-label {
+    font-family: 'Rubik', sans-serif;
+    font-size: 11px;
+    color: #9aa0ad;
+}
+
+.ad-detail__agency-meta-value {
+    font-family: 'Rubik', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: #061E4A;
+}
+
+/* Realtor */
+.ad-detail__realtor {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.ad-detail__realtor-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #e8edf5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-family: 'Rubik', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: #136EF3;
+}
+
+.ad-detail__realtor-info {}
+
+.ad-detail__realtor-role {
+    font-family: 'Rubik', sans-serif;
+    font-size: 11px;
+    color: #9aa0ad;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0;
+}
+
+.ad-detail__realtor-name {
+    font-family: 'Rubik', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #061E4A;
+    margin: 0;
+}
+
+/* Contact buttons */
+.ad-detail__contact-btns {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.ad-detail__btn-phone {
+    width: 100%;
+    height: 44px;
+    border-radius: 10px;
+    background: #136EF3;
+    border: none;
+    font-family: 'Rubik', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.ad-detail__btn-phone:hover {
+    background: #0e5bcc;
+}
+
+.ad-detail__btn-chat {
+    width: 100%;
+    height: 44px;
+    border-radius: 10px;
+    background: #eaf1fe;
+    border: none;
+    font-family: 'Rubik', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: #136EF3;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.ad-detail__btn-chat:hover {
+    background: #d5e5fd;
+}
+
+.ad-detail__response-hint {
+    font-family: 'Rubik', sans-serif;
+    font-size: 12px;
+    color: #9aa0ad;
+    margin: 6px 0 0;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Loading / Error states */
+.ad-detail__loading,
+.ad-detail__error {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+    font-family: 'Rubik', sans-serif;
+    font-size: 16px;
+    color: #9aa0ad;
+}

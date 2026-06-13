@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './CommercialPage.css';
+import AdsGrid from '../components/AdsGrid';
 
 const categories = [
     {
@@ -45,7 +46,7 @@ const icons = {
 
 const CommercialPage = () => {
     return (
-        <div className="commercial-page">
+        <>
             <div className="commercial-page__hero">
                 <div className="commercial-page__cards">
                     {categories.map((cat) => (
@@ -69,7 +70,8 @@ const CommercialPage = () => {
                     ))}
                 </div>
             </div>
-        </div>
+        <AdsGrid dealTypes={[3, 4]} title="Коммерческая недвижимость" />
+    </>
     );
 };
 

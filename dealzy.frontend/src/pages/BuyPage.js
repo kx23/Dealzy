@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './BuyPage.css';
+import AdsGrid from '../components/AdsGrid';
 
 const categories = [
     {
@@ -10,10 +11,7 @@ const categories = [
             { label: 'Новостройка', to: '/catalog?type=buy&kind=new-apartment' },
         ],
     },
-    {
-        label: 'Комната',
-        sub: [],
-    },
+    { label: 'Комната', sub: [] },
     {
         label: 'Дом',
         sub: [
@@ -23,15 +21,12 @@ const categories = [
             { label: 'Участок', to: '/catalog?type=buy&kind=land' },
         ],
     },
-    {
-        label: 'Гараж',
-        sub: [],
-    },
+    { label: 'Гараж', sub: [] },
 ];
 
 const icons = {
     'Квартира': (
-        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
             <rect x="5" y="14" width="30" height="22" rx="2" stroke="#136EF3" strokeWidth="2" fill="none"/>
             <path d="M2 16L20 4L38 16" stroke="#136EF3" strokeWidth="2" strokeLinecap="round"/>
             <rect x="14" y="24" width="12" height="12" rx="1" stroke="#136EF3" strokeWidth="1.5" fill="none"/>
@@ -39,7 +34,7 @@ const icons = {
         </svg>
     ),
     'Комната': (
-        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
             <rect x="5" y="10" width="30" height="26" rx="2" stroke="#136EF3" strokeWidth="2" fill="none"/>
             <line x1="5" y1="22" x2="35" y2="22" stroke="#136EF3" strokeWidth="1.5"/>
             <rect x="12" y="26" width="8" height="10" rx="1" stroke="#136EF3" strokeWidth="1.5" fill="none"/>
@@ -47,7 +42,7 @@ const icons = {
         </svg>
     ),
     'Дом': (
-        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
             <path d="M4 18L20 6L36 18V36H4V18Z" stroke="#136EF3" strokeWidth="2" fill="none" strokeLinejoin="round"/>
             <rect x="15" y="26" width="10" height="10" rx="1" stroke="#136EF3" strokeWidth="1.5" fill="none"/>
             <rect x="8" y="20" width="8" height="7" rx="1" stroke="#136EF3" strokeWidth="1.5" fill="none"/>
@@ -55,7 +50,7 @@ const icons = {
         </svg>
     ),
     'Гараж': (
-        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
             <rect x="4" y="12" width="32" height="24" rx="2" stroke="#136EF3" strokeWidth="2" fill="none"/>
             <path d="M4 12L20 4L36 12" stroke="#136EF3" strokeWidth="2" strokeLinecap="round"/>
             <line x1="4" y1="20" x2="36" y2="20" stroke="#136EF3" strokeWidth="1.5"/>
@@ -65,8 +60,8 @@ const icons = {
     ),
 };
 
-const BuyPage = () => {
-    return (
+const BuyPage = () => (
+    <>
         <div className="buy-page">
             <div className="buy-page__hero">
                 <div className="buy-page__cards">
@@ -92,7 +87,8 @@ const BuyPage = () => {
                 </div>
             </div>
         </div>
-    );
-};
+        <AdsGrid dealTypes={[0]} title="Объявления о продаже" />
+    </>
+);
 
 export default BuyPage;

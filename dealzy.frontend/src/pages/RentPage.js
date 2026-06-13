@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './RentPage.css';
+import AdsGrid from '../components/AdsGrid';
 
 const categories = [
     {
@@ -66,7 +67,7 @@ const icons = {
 
 const RentPage = () => {
     return (
-        <div className="rent-page">
+        <>
             <div className="rent-page__hero">
                 <div className="rent-page__cards">
                     {categories.map((cat) => (
@@ -90,7 +91,8 @@ const RentPage = () => {
                     ))}
                 </div>
             </div>
-        </div>
+        <AdsGrid dealTypes={[1]} title="Объявления об аренде" />
+        </>
     );
 };
 
