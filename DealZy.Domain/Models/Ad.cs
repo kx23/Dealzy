@@ -8,18 +8,18 @@ public class Ad
     [Key]
     public Guid Id { get; set; } = Guid.NewGuid();
 
-    [Required]
     [MaxLength(100)]
-    public string Title { get; set; }
+    public string? Title { get; set; }
 
     [MaxLength(500)]
-    public string Description { get; set; }
+    public string? Description { get; set; }
 
-    [Required]
     [Range(0, 1000000)]
-    public decimal Price { get; set; }
-
-    public string ImageUrl { get; set; }
+    public decimal? Price { get; set; }
 
     public DealType DealType { get; set; }
+
+    public AdStatus Status { get; set; } = AdStatus.Draft;
+
+    public ICollection<AdPhoto> Photos { get; set; } = new List<AdPhoto>();
 }

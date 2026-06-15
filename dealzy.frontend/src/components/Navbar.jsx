@@ -7,7 +7,7 @@ import AuthModal from './auth/AuthModal';
 import './Navbar.css';
 
 const Navbar = () => {
-    const { user, logout } = useAuth();
+    const { user } = useAuth();
     const [authOpen, setAuthOpen] = useState(false);
     const navigate = useNavigate();
 
@@ -34,12 +34,12 @@ const Navbar = () => {
                                 Создать объявление
                             </button>
                             {user ? (
-                                <button
+                                <Link
+                                    to="/profile"
                                     className="site-header__btn site-header__btn--ghost"
-                                    onClick={logout}
                                 >
                                     {user.name}
-                                </button>
+                                </Link>
                             ) : (
                                 <button
                                     className="site-header__btn site-header__btn--filled"

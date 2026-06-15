@@ -11,6 +11,7 @@ public class ApplicationDbContext : IdentityDbContext<User>
 
     public DbSet<RefreshToken> RefreshTokens { get; set; }
     public DbSet<Ad> Ads { get; set; }
+    public DbSet<AdPhoto> AdPhotos { get; set; }
     public DbSet<Category> Categories { get; set; }
     public DbSet<Address> Addresses { get; set; }
 

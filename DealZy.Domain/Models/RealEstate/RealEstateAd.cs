@@ -5,8 +5,7 @@ namespace DealZy.Domain.Models.RealEstate;
 
 public abstract class RealEstateAd : Ad
 {
-    [Required]
-    public double Area { get; set; }
+    public double? Area { get; set; }
 
     public SellerType? SellerType { get; set; }
 

@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import RegisterPage from './pages/RegisterPage';
 import LoginPage from './pages/LoginPage';
-import AddAdPage from './pages/AddAdPage';
 import CreateAdPage from './pages/CreateAdPage/CreateAdPage';
 import Navbar from './components/Navbar';
 import AdDetailPage from './pages/AdDetailPage';
@@ -12,6 +11,7 @@ import BuyPage from './pages/BuyPage';
 import RentPage from './pages/RentPage';
 import DailyPage from './pages/DailyPage';
 import CommercialPage from './pages/CommercialPage';
+import ProfilePage from './pages/ProfilePage';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -22,7 +22,6 @@ function App() {
                 <Route path="/" element={<HomePage />} />
                 <Route path="/register" element={<RegisterPage />} />
                 <Route path="/login" element={<LoginPage />} />
-                <Route path="/addad" element={<AddAdPage />} />
                 <Route path="/create" element={<CreateAdPage />} />
                 <Route path="/ad/:id" element={<AdDetailPage />} />
                 <Route path="/category/:categoryId" element={<CategoryPage />} />
@@ -30,6 +29,7 @@ function App() {
                 <Route path="/rent" element={<RentPage />} />
                 <Route path="/daily" element={<DailyPage />} />
                 <Route path="/commercial" element={<CommercialPage />} />
+                <Route path="/profile" element={<ProfilePage />} />
             </Routes>
         </Router>
     );

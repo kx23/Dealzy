@@ -9,7 +9,6 @@ public class AdConfiguration : IEntityTypeConfiguration<Ad>
     public void Configure(EntityTypeBuilder<Ad> builder)
     {
         builder.Property(a => a.Title)
-            .IsRequired()
             .HasMaxLength(100);
 
         builder.Property(a => a.Description)

@@ -40,6 +40,7 @@ public class Program
             });
 
         builder.Services.AddScoped<IGeocodingService, GeocodingService>();
+        builder.Services.AddScoped<ICloudinaryService, CloudinaryService>();
 
         builder.Services.AddOptions();
         builder.Services.AddHttpClient<ResendClient>();

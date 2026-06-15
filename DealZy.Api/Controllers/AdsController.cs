@@ -24,7 +24,9 @@ public class AdsController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<IEnumerable<AdResponseDto>>> GetAds([FromQuery] DealType[]? dealType)
     {
-        var query = _context.Ads.AsQueryable();
+        var query = _context.Ads.Include(a => a.Photos)
+            .Where(a => a.Status == AdStatus.Published)
+            .AsQueryable();
 
         if (dealType != null && dealType.Length > 0)
             query = query.Where(a => dealType.Contains(a.DealType));
@@ -36,7 +38,7 @@ public class AdsController : ControllerBase
             Title        = a.Title,
             Description  = a.Description,
             Price        = a.Price,
-            ImageUrl     = a.ImageUrl,
+            MainPhotoUrl = a.Photos.OrderBy(p => p.Order).Select(p => p.Url).FirstOrDefault(),
             DealType     = a.DealType,
             PropertyKind = a.GetType().Name.Replace("Ad", "")
         }));
@@ -47,6 +49,7 @@ public class AdsController : ControllerBase
     {
         var ad = await _context.RealEstateAds
             .Include(a => a.Address)
+            .Include(a => a.Photos.OrderBy(p => p.Order))
             .FirstOrDefaultAsync(a => a.Id == id);
 
         if (ad == null) return NotFound();
@@ -57,7 +60,8 @@ public class AdsController : ControllerBase
             Title        = ad.Title,
             Description  = ad.Description,
             Price        = ad.Price,
-            ImageUrl     = ad.ImageUrl,
+            MainPhotoUrl = ad.Photos.Select(p => p.Url).FirstOrDefault(),
+            PhotoUrls    = ad.Photos.Select(p => p.Url).ToList(),
             DealType     = ad.DealType,
             PropertyKind = ad.GetType().Name.Replace("Ad", ""),
             Area         = ad.Area,
@@ -101,7 +105,6 @@ public class AdsController : ControllerBase
     {
         ad.Title          = dto.Title;
         ad.Description    = dto.Description;
-        ad.ImageUrl       = dto.ImageUrl;
         ad.Price          = dto.Price;
         ad.DealType       = dto.DealType;
         ad.Area           = dto.Area;
@@ -345,6 +348,134 @@ public class AdsController : ControllerBase
             ad.GetType().Name, ad.DealType, ad.Id);
 
         return CreatedAtAction(nameof(GetAd), new { id = ad.Id }, new { id = ad.Id });
+    }
+
+    [HttpPost("draft")]
+    public async Task<IActionResult> CreateDraft([FromBody] CreateDraftDto dto)
+    {
+        var kind = dto.PropertyKind?.ToLower();
+        RealEstateAd ad = kind switch
+        {
+            "house"     => new HouseAd(),
+            "apartment" => new ApartmentAd(),
+            "room"      => new RoomAd(),
+            "garage"    => new GarageAd(),
+            "landplot"  => new LandPlotAd(),
+            "office"    => new OfficeAd(),
+            "retail"    => new RetailAd(),
+            "warehouse" => new WarehouseAd(),
+            "coworking" => new CoworkingAd(),
+            _           => null
+        };
+
+        if (ad == null) return BadRequest("Unknown propertyKind.");
+
+        if (!Enum.TryParse<DealType>(dto.DealType, out var dealType))
+            return BadRequest("Unknown dealType.");
+
+        ad.DealType = dealType;
+        ad.Status   = AdStatus.Draft;
+
+        _context.Add(ad);
+        await _context.SaveChangesAsync();
+
+        _logger.LogInformation("Draft created: id={Id} kind={Kind}", ad.Id, kind);
+        return Ok(new { id = ad.Id });
+    }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdateAd(Guid id, [FromBody] CreateAdBaseDto dto)
+    {
+        var ad = await _context.RealEstateAds.FirstOrDefaultAsync(a => a.Id == id);
+        if (ad == null) return NotFound();
+
+        MapBase(ad, dto);
+
+        // Apply subtype-specific fields via pattern matching
+        switch (ad)
+        {
+            case HouseAd h when dto is CreateHouseAdDto hd:
+                h.HouseArea = hd.HouseArea; h.LandArea = hd.LandArea; h.Floors = hd.Floors;
+                h.Rooms = hd.Rooms; h.Bedrooms = hd.Bedrooms; h.ConstructionYear = hd.ConstructionYear;
+                h.Material = hd.Material; h.HasBanya = hd.HasBanya; h.HasGarage = hd.HasGarage;
+                h.HasPool = hd.HasPool; h.HasSecurity = hd.HasSecurity;
+                break;
+            case ApartmentAd a when dto is CreateApartmentAdDto ad2:
+                a.Rooms = ad2.Rooms; a.ApartmentFloor = ad2.ApartmentFloor; a.BuildingFloors = ad2.BuildingFloors;
+                a.KitchenArea = ad2.KitchenArea; a.LivingArea = ad2.LivingArea; a.CeilingHeight = ad2.CeilingHeight;
+                a.ConstructionYear = ad2.ConstructionYear; a.RenovationType = ad2.RenovationType;
+                a.BuildingType = ad2.BuildingType; a.IsApartments = ad2.IsApartments; a.IsShareSale = ad2.IsShareSale;
+                break;
+            case RoomAd r when dto is CreateRoomAdDto rd:
+                r.ApartmentFloor = rd.ApartmentFloor; r.BuildingFloors = rd.BuildingFloors;
+                r.TotalRoomsInApartment = rd.TotalRoomsInApartment; r.RoomsForSale = rd.RoomsForSale;
+                r.CeilingHeight = rd.CeilingHeight; r.ConstructionYear = rd.ConstructionYear;
+                r.IsMortgagePossible = rd.IsMortgagePossible; r.IsDemolitionBuilding = rd.IsDemolitionBuilding;
+                break;
+            case GarageAd g when dto is CreateGarageAdDto gd:
+                g.GarageType = gd.GarageType; g.OwnershipStatus = gd.OwnershipStatus;
+                break;
+            case LandPlotAd l when dto is CreateLandPlotAdDto ld:
+                l.LandStatus = ld.LandStatus;
+                break;
+            case OfficeAd o when dto is CreateOfficeAdDto od:
+                o.FloorMin = od.FloorMin; o.FloorMax = od.FloorMax; o.BuildingFloors = od.BuildingFloors;
+                o.Class = od.Class; o.Condition = od.Condition; o.HasParking = od.HasParking;
+                o.FurnitureType = od.FurnitureType;
+                break;
+            case RetailAd rt when dto is CreateRetailAdDto rtd:
+                rt.FloorMin = rtd.FloorMin; rt.FloorMax = rtd.FloorMax; rt.SpaceType = rtd.SpaceType;
+                rt.EntranceType = rtd.EntranceType; rt.IsFirstLine = rtd.IsFirstLine; rt.HasParking = rtd.HasParking;
+                break;
+            case WarehouseAd w when dto is CreateWarehouseAdDto wd:
+                w.FloorMin = wd.FloorMin; w.FloorMax = wd.FloorMax; w.Class = wd.Class;
+                w.HeatingType = wd.HeatingType; w.HasParking = wd.HasParking;
+                break;
+            case CoworkingAd c when dto is CreateCoworkingAdDto cd:
+                c.FloorMin = cd.FloorMin; c.Access = cd.Access; c.HasParking = cd.HasParking;
+                break;
+        }
+
+        if (dto.Address != null)
+            ad.AddressId = (await UpsertAddress(dto.Address)).Id;
+
+        await _context.SaveChangesAsync();
+        return Ok(new { id = ad.Id });
+    }
+
+    [HttpPost("{id}/publish")]
+    public async Task<IActionResult> PublishAd(Guid id)
+    {
+        var ad = await _context.RealEstateAds.FirstOrDefaultAsync(a => a.Id == id);
+        if (ad == null) return NotFound();
+
+        if (string.IsNullOrWhiteSpace(ad.Title)) return BadRequest("Title is required.");
+        if (ad.Price == null) return BadRequest("Price is required.");
+        if (ad.Area == null) return BadRequest("Area is required.");
+
+        ad.Status = AdStatus.Published;
+        await _context.SaveChangesAsync();
+
+        _logger.LogInformation("Ad published: id={Id}", id);
+        return Ok(new { id = ad.Id });
+    }
+
+    private async Task<Address> UpsertAddress(AddressDto dto)
+    {
+        var address = await _context.Addresses
+            .FirstOrDefaultAsync(a => a.Latitude == dto.Latitude && a.Longitude == dto.Longitude);
+
+        if (address != null) return address;
+
+        address = new Address
+        {
+            DisplayName = dto.DisplayName, Latitude = dto.Latitude, Longitude = dto.Longitude,
+            City = dto.City, Street = dto.Street, HouseNumber = dto.HouseNumber,
+            PostalCode = dto.PostalCode, Country = dto.Country, State = dto.State
+        };
+        _context.Addresses.Add(address);
+        await _context.SaveChangesAsync();
+        return address;
     }
 
     [HttpDelete("{id}")]

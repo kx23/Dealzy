@@ -9,7 +9,7 @@ const AdsGrid = ({ dealTypes, title }) => {
 
     useEffect(() => {
         const params = new URLSearchParams();
-        dealTypes.forEach(t => params.append('dealType', t));
+        dealTypes?.forEach(t => params.append('dealType', t));
 
         axios.get(`/api/ads?${params.toString()}`)
             .then(res => setAds(res.data))

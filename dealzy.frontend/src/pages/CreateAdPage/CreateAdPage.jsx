@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AddressAutocomplete from '../../components/AddressAutocomplete';
+import PhotoUploader from '../../components/PhotoUploader';
 import { DEAL_BUTTONS, CATEGORY_GROUPS, FIELDS_BY_KIND_BUY, FIELDS_BY_KIND_RENT, FIELDS_BY_KIND_DAILY } from './adFormConfig';
 import './CreateAdPage.css';
 
 const API_BASE = 'http://localhost:5176';
 
 const CreateAdPage = () => {
-  const [dealKey, setDealKey]       = useState(null); // 'rent' | 'daily' | 'buy'
-  const [selected, setSelected]     = useState(null); // { propertyKind, dealType, label }
+  const [dealKey, setDealKey]       = useState(null);
+  const [selected, setSelected]     = useState(null);
+  const [draftId, setDraftId]       = useState(null);
   const [formData, setFormData]     = useState({});
   const [submitting, setSubmitting] = useState(false);
   const [result, setResult]         = useState(null);
@@ -21,14 +23,30 @@ const CreateAdPage = () => {
     if (dealKey === key) return;
     setDealKey(key);
     setSelected(null);
+    setDraftId(null);
     setFormData({});
     setResult(null);
   };
 
-  const handleCategoryClick = (item) => {
+  const handleCategoryClick = async (item) => {
     setSelected(item);
+    setDraftId(null);
     setFormData({});
     setResult(null);
+    try {
+      const res = await fetch(`${API_BASE}/api/ads/draft`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ propertyKind: item.propertyKind, dealType: item.dealType }),
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setDraftId(data.id);
+      }
+    } catch (e) {
+      console.error('Failed to create draft', e);
+    }
   };
 
   const handleChange = (name, value) => {
@@ -36,25 +54,33 @@ const CreateAdPage = () => {
   };
 
   const handleSubmit = async () => {
+    if (!draftId) return;
     setSubmitting(true);
     setResult(null);
     try {
-      const payload = {
-        ...formData,
-        propertyKind: selected.propertyKind,
-        dealType: selected.dealType,
-      };
-      const res = await fetch(`${API_BASE}/api/ads`, {
-        method: 'POST',
+      const payload = { ...formData, propertyKind: selected.propertyKind, dealType: selected.dealType };
+
+      const putRes = await fetch(`${API_BASE}/api/ads/${draftId}`, {
+        method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify(payload),
       });
-      if (res.ok) {
-        const data = await res.json();
-        navigate('/ad/' + data.id);
-      } else {
-        const text = await res.text();
+      if (!putRes.ok) {
+        const text = await putRes.text();
         setResult({ ok: false, message: `Ошибка: ${text}` });
+        return;
+      }
+
+      const pubRes = await fetch(`${API_BASE}/api/ads/${draftId}/publish`, {
+        method: 'POST',
+        credentials: 'include',
+      });
+      if (pubRes.ok) {
+        navigate('/ad/' + draftId);
+      } else {
+        const text = await pubRes.text();
+        setResult({ ok: false, message: `Ошибка публикации: ${text}` });
       }
     } catch (e) {
       setResult({ ok: false, message: 'Не удалось подключиться к серверу.' });
@@ -119,6 +145,14 @@ const CreateAdPage = () => {
                 onChange={handleChange}
               />
             ))}
+
+            <div className="create-ad__field">
+              <label className="create-ad__label">Фото и планировка</label>
+              {draftId
+                ? <PhotoUploader adId={draftId} />
+                : <p style={{ color: '#999', fontSize: 14 }}>Выберите категорию, чтобы загрузить фото</p>
+              }
+            </div>
 
             {result && (
               <div className={`create-ad__result ${result.ok ? 'create-ad__result--ok' : 'create-ad__result--err'}`}>
