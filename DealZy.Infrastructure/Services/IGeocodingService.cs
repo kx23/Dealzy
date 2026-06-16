@@ -9,4 +9,5 @@ public interface IGeocodingService
     Task<List<AddressResult>> SearchStreetAsync(string query, string city);
     Task<AddressResult?> GeocodeByUriAsync(string uri);
     Task<AddressResult?> GeocodeByTextAsync(string text, double? llLon = null, double? llLat = null);
+    Task<List<string>> GetDistrictsAsync(string cityName, double lon, double lat);
 }

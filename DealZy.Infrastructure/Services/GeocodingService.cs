@@ -199,6 +199,41 @@ public class GeocodingService : IGeocodingService
         }
     }
 
+    public async Task<List<string>> GetDistrictsAsync(string cityName, double lon, double lat)
+    {
+        var cacheKey = $"districts_{cityName.ToLowerInvariant().Trim()}";
+        if (_cache.TryGetValue<List<string>>(cacheKey, out var cached)) return cached!;
+
+        try
+        {
+            var inv = System.Globalization.CultureInfo.InvariantCulture;
+            var ll = $"{lon.ToString(inv)},{lat.ToString(inv)}";
+            var url = $"{GeocoderUrl}?apikey={_geocoderApiKey}&geocode={Uri.EscapeDataString(cityName)}&kind=district&results=50&rspn=1&ll={ll}&spn=0.5,0.5&format=json&lang=ru_RU";
+
+            var response = await _httpClient.GetAsync(url);
+            response.EnsureSuccessStatusCode();
+
+            var content = await response.Content.ReadAsStringAsync();
+            var geoResponse = JsonSerializer.Deserialize<YandexGeocoderResponse>(content, JsonOptions);
+
+            var districts = geoResponse?.Response?.GeoObjectCollection?.FeatureMember?
+                .Select(m => m.GeoObject?.MetaDataProperty?.GeocoderMetaData?.Text)
+                .Where(t => !string.IsNullOrEmpty(t))
+                .Select(t => t!.Split(',').Last().Trim())
+                .Distinct()
+                .OrderBy(t => t)
+                .ToList() ?? new List<string>();
+
+            _cache.Set(cacheKey, districts, new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromHours(6)));
+            return districts;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "GetDistricts error for city: {City}", cityName);
+            return new List<string>();
+        }
+    }
+
     public async Task<AddressResult?> GeocodeByTextAsync(string text, double? llLon = null, double? llLat = null)
     {
         var cacheKey = $"geocode_text_{text.ToLowerInvariant().Trim()}_{llLon}_{llLat}";

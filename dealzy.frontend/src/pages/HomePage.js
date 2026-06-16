@@ -6,9 +6,7 @@ const HomePage = () => {
     return (
         <div className="home-page">
             <div className="home-hero">
-                <div className="home-hero__placeholder">
-                    <span>Баннер — добавить изображение</span>
-                </div>
+                <img src="/images/banner.jpg" alt="banner" className="home-hero__img" />
             </div>
 
             <div className="home-content">

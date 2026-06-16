@@ -12,6 +12,7 @@ import RentPage from './pages/RentPage';
 import DailyPage from './pages/DailyPage';
 import CommercialPage from './pages/CommercialPage';
 import ProfilePage from './pages/ProfilePage';
+import CatalogPage from './pages/CatalogPage';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
                 <Route path="/daily" element={<DailyPage />} />
                 <Route path="/commercial" element={<CommercialPage />} />
                 <Route path="/profile" element={<ProfilePage />} />
+                <Route path="/catalog" element={<CatalogPage />} />
             </Routes>
         </Router>
     );

@@ -48,6 +48,7 @@ const CommercialPage = () => {
     return (
         <>
             <div className="commercial-page__hero">
+                <img src="/images/banner.jpg" alt="banner" className="commercial-page__hero-img" />
                 <div className="commercial-page__cards">
                     {categories.map((cat) => (
                         <div key={cat.label} className="commercial-card__wrap">

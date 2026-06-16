@@ -1,12 +1,29 @@
 .buy-page__hero {
     width: 100%;
     height: 390px;
-    background: linear-gradient(135deg, #BBDEFB 0%, #90CAF9 40%, #64B5F6 100%);
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 48px 24px;
-    overflow: visible;
+    overflow: hidden;
+    position: relative;
+}
+
+.buy-page__hero-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+.buy-page__hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+    z-index: 1;
 }
 
 .buy-page__cards {
@@ -15,6 +32,8 @@
     grid-template-rows: 290px;
     gap: 20px;
     align-items: start;
+    position: relative;
+    z-index: 2;
 }
 
 .buy-card__wrap {

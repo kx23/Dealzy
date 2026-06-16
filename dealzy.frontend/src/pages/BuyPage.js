@@ -64,6 +64,7 @@ const BuyPage = () => (
     <>
         <div className="buy-page">
             <div className="buy-page__hero">
+                <img src="/images/banner.jpg" alt="banner" className="buy-page__hero-img" />
                 <div className="buy-page__cards">
                     {categories.map((cat) => (
                         <div key={cat.label} className="buy-card__wrap">

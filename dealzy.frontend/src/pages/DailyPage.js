@@ -49,6 +49,7 @@ const DailyPage = () => {
     return (
         <>
             <div className="daily-page__hero">
+                <img src="/images/banner.jpg" alt="banner" className="daily-page__hero-img" />
                 <div className="daily-page__cards">
                     {categories.map((cat) => (
                         <div key={cat.label} className="daily-card__wrap">

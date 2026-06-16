@@ -69,6 +69,7 @@ const RentPage = () => {
     return (
         <>
             <div className="rent-page__hero">
+                <img src="/images/banner.jpg" alt="banner" className="rent-page__hero-img" />
                 <div className="rent-page__cards">
                     {categories.map((cat) => (
                         <div key={cat.label} className="rent-card__wrap">
