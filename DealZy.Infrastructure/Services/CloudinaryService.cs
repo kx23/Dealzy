@@ -8,6 +8,7 @@ namespace DealZy.Infrastructure.Services;
 
 public interface ICloudinaryService
 {
+    Task<string> UploadImageAsync(IFormFile file, string folder);
     Task<string> UploadAdPhotoAsync(IFormFile file, Guid adId);
     Task<bool> DeleteImageByUrlAsync(string url);
 }
@@ -28,6 +29,34 @@ public class CloudinaryService : ICloudinaryService
         _cloudinary = new Cloudinary(account);
         _logger = logger;
         _folderPrefix = configuration["Cloudinary:FolderPrefix"] ?? "dev";
+    }
+
+    public async Task<string> UploadImageAsync(IFormFile file, string folder)
+    {
+        if (file.Length == 0) throw new ArgumentException("File is empty");
+
+        using var stream = file.OpenReadStream();
+        var publicId = $"{_folderPrefix}/{folder}/{Guid.NewGuid()}";
+
+        var uploadParams = new ImageUploadParams
+        {
+            File = new FileDescription(file.FileName, stream),
+            PublicId = publicId,
+            Overwrite = true,
+            Invalidate = true,
+            Transformation = new Transformation().Quality("auto").FetchFormat("auto")
+        };
+
+        var result = await _cloudinary.UploadAsync(uploadParams);
+
+        if (result.Error != null)
+        {
+            _logger.LogError("Cloudinary upload failed: folder={Folder} error={Error}", folder, result.Error.Message);
+            throw new Exception(result.Error.Message);
+        }
+
+        _logger.LogInformation("Image uploaded: publicId={PublicId} folder={Folder}", result.PublicId, folder);
+        return $"{result.SecureUrl}?v={DateTimeOffset.UtcNow.ToUnixTimeSeconds()}";
     }
 
     public async Task<string> UploadAdPhotoAsync(IFormFile file, Guid adId)

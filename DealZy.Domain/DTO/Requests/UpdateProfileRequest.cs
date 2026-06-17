@@ -1,11 +1,9 @@
-using Microsoft.AspNetCore.Identity;
+namespace DealZy.Domain.DTO.Requests;
 
-namespace DealZy.Domain.Models;
-
-public class User : IdentityUser
+public class UpdateProfileRequest
 {
-    public DateTime RegisteredAt { get; set; } = DateTime.UtcNow;
     public string? AvatarUrl { get; set; }
+    public string? PhoneNumber { get; set; }
     public string? TelegramNick { get; set; }
     public string? ContactName { get; set; }
     public string? Gender { get; set; }
