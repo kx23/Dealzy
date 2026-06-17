@@ -75,12 +75,13 @@ public class GeocodingController : ControllerBase
 
     [HttpGet("districts")]
     [ProducesResponseType(typeof(List<string>), StatusCodes.Status200OK)]
-    public async Task<ActionResult<List<string>>> GetDistricts([FromQuery] string cityName, [FromQuery] double lon, [FromQuery] double lat)
+    public async Task<ActionResult<List<string>>> GetDistricts([FromQuery] string cityName)
     {
         if (string.IsNullOrWhiteSpace(cityName))
             return BadRequest(new { error = "cityName is required" });
 
-        var results = await _geocodingService.GetDistrictsAsync(cityName, lon, lat);
+        _logger.LogInformation("GetDistricts called for city: {CityName}", cityName);
+        var results = await _geocodingService.GetDistrictsAsync(cityName);
         return Ok(results);
     }
 

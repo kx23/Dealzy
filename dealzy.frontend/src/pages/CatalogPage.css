@@ -43,37 +43,7 @@
 .catalog-filter__kind { width: 160px; }
 .catalog-filter__rooms { width: 140px; }
 
-.catalog-filter__checks {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-}
-
-.catalog-filter__check-label {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-family: 'Rubik', sans-serif;
-    font-size: 13px;
-    color: #061E4A;
-    cursor: pointer;
-    user-select: none;
-}
-
-.catalog-filter__check-label input[type="checkbox"] {
-    width: 16px;
-    height: 16px;
-    accent-color: #136EF3;
-    cursor: pointer;
-}
-
 /* City search */
-.city-search-wrap {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
 .city-search {
     position: relative;
     display: flex;
@@ -159,6 +129,7 @@
     align-items: center;
     gap: 5px;
     white-space: nowrap;
+    flex-shrink: 0;
     transition: border-color 0.15s, color 0.15s;
 }
 
@@ -330,33 +301,6 @@
 }
 
 .popup-btn-apply:hover { background: #196BD4; }
-
-/* Districts grid */
-.districts-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px 16px;
-    overflow-y: auto;
-    max-height: 360px;
-    padding-right: 4px;
-}
-
-.district-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-family: 'Rubik', sans-serif;
-    font-size: 13px;
-    color: #061E4A;
-    cursor: pointer;
-    user-select: none;
-}
-
-.district-item input[type="checkbox"] {
-    accent-color: #136EF3;
-    width: 15px;
-    height: 15px;
-}
 
 /* Extra filters */
 .extra-filters-body {

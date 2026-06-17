@@ -157,10 +157,7 @@ public class GeocodingService : IGeocodingService
         try
         {
             var url = $"{GeocoderUrl}?apikey={_geocoderApiKey}&geocode={Uri.EscapeDataString(uri)}&format=json&lang=ru_RU&results=1";
-            var response = await _httpClient.GetAsync(url);
-            response.EnsureSuccessStatusCode();
-
-            var content = await response.Content.ReadAsStringAsync();
+            var content = await CallGeocoderWithLoggingAsync(url, "Geocode by URI");
             var geoResponse = JsonSerializer.Deserialize<YandexGeocoderResponse>(content, JsonOptions);
 
             var member = geoResponse?.Response?.GeoObjectCollection?.FeatureMember?.FirstOrDefault();
@@ -199,24 +196,65 @@ public class GeocodingService : IGeocodingService
         }
     }
 
-    public async Task<List<string>> GetDistrictsAsync(string cityName, double lon, double lat)
+    public async Task<List<string>> GetDistrictsAsync(string cityName)
     {
+        if (string.IsNullOrWhiteSpace(cityName)) return new List<string>();
+
         var cacheKey = $"districts_{cityName.ToLowerInvariant().Trim()}";
         if (_cache.TryGetValue<List<string>>(cacheKey, out var cached)) return cached!;
 
         try
         {
             var inv = System.Globalization.CultureInfo.InvariantCulture;
-            var ll = $"{lon.ToString(inv)},{lat.ToString(inv)}";
-            var url = $"{GeocoderUrl}?apikey={_geocoderApiKey}&geocode={Uri.EscapeDataString(cityName)}&kind=district&results=50&rspn=1&ll={ll}&spn=0.5,0.5&format=json&lang=ru_RU";
 
-            var response = await _httpClient.GetAsync(url);
-            response.EnsureSuccessStatusCode();
+            // Step 1: Geocode city name to get its center and bounding box
+            _logger.LogInformation("=== Step 1: Geocoding city '{CityName}' to get center and bounding box ===", cityName);
 
-            var content = await response.Content.ReadAsStringAsync();
-            var geoResponse = JsonSerializer.Deserialize<YandexGeocoderResponse>(content, JsonOptions);
+            var cityUrl = $"{GeocoderUrl}?apikey={_geocoderApiKey}&geocode={Uri.EscapeDataString(cityName)}&kind=locality&results=1&format=json&lang=ru_RU";
+            var cityJson = await CallGeocoderWithLoggingAsync(cityUrl, "City geocoding");
 
-            var districts = geoResponse?.Response?.GeoObjectCollection?.FeatureMember?
+            var cityGeoResponse = JsonSerializer.Deserialize<YandexGeocoderResponse>(cityJson, JsonOptions);
+            var member = cityGeoResponse?.Response?.GeoObjectCollection?.FeatureMember?.FirstOrDefault();
+
+            if (member?.GeoObject?.BoundedBy?.Envelope == null || member.GeoObject.Point?.Pos == null)
+            {
+                _logger.LogWarning("Could not determine position or bounding box for city: {CityName}", cityName);
+                return new List<string>();
+            }
+
+            var env = member.GeoObject.BoundedBy.Envelope;
+            var lowerParts = env.LowerCorner?.Split(' ');
+            var upperParts = env.UpperCorner?.Split(' ');
+            var centerParts = member.GeoObject.Point.Pos.Split(' ');
+
+            if (lowerParts == null || lowerParts.Length < 2 || upperParts == null || upperParts.Length < 2 || centerParts.Length < 2)
+            {
+                _logger.LogWarning("Invalid position/bounding box format for city: {CityName}", cityName);
+                return new List<string>();
+            }
+
+            var centerLon = double.Parse(centerParts[0], inv);
+            var centerLat = double.Parse(centerParts[1], inv);
+            var lowerLon = double.Parse(lowerParts[0], inv);
+            var lowerLat = double.Parse(lowerParts[1], inv);
+            var upperLon = double.Parse(upperParts[0], inv);
+            var upperLat = double.Parse(upperParts[1], inv);
+
+            var spnLon = (upperLon - lowerLon).ToString(inv);
+            var spnLat = (upperLat - lowerLat).ToString(inv);
+            var ll = $"{centerLon.ToString(inv)},{centerLat.ToString(inv)}";
+            _logger.LogInformation("City center: {Ll}, spn: {SpnLon},{SpnLat}", ll, spnLon, spnLat);
+
+            // Step 2: Query districts with ll+spn and kind=district
+            // Note: spn is NOT ignored here because geocode contains city NAME (text), not coordinates
+            _logger.LogInformation("=== Step 2: Fetching districts with ll+spn ===");
+
+            var districtsUrl = $"{GeocoderUrl}?apikey={_geocoderApiKey}&geocode={Uri.EscapeDataString(cityName)}&ll={ll}&spn={spnLon},{spnLat}&kind=district&rspn=1&results=50&format=json&lang=ru_RU";
+            var districtsJson = await CallGeocoderWithLoggingAsync(districtsUrl, "Districts by bbox");
+
+            var districtsGeoResponse = JsonSerializer.Deserialize<YandexGeocoderResponse>(districtsJson, JsonOptions);
+
+            var districts = districtsGeoResponse?.Response?.GeoObjectCollection?.FeatureMember?
                 .Select(m => m.GeoObject?.MetaDataProperty?.GeocoderMetaData?.Text)
                 .Where(t => !string.IsNullOrEmpty(t))
                 .Select(t => t!.Split(',').Last().Trim())
@@ -225,6 +263,10 @@ public class GeocodingService : IGeocodingService
                 .ToList() ?? new List<string>();
 
             _cache.Set(cacheKey, districts, new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromHours(6)));
+
+            _logger.LogInformation("Found {Count} districts for city '{CityName}': {Districts}",
+                districts.Count, cityName, string.Join(", ", districts));
+
             return districts;
         }
         catch (Exception ex)
@@ -232,6 +274,29 @@ public class GeocodingService : IGeocodingService
             _logger.LogError(ex, "GetDistricts error for city: {City}", cityName);
             return new List<string>();
         }
+    }
+
+    private async Task<string> CallGeocoderWithLoggingAsync(string url, string description)
+    {
+        var request = new HttpRequestMessage(HttpMethod.Get, url);
+        var response = await _httpClient.SendAsync(request);
+
+        var safeUrl = url.Replace(_geocoderApiKey, "***");
+        _logger.LogInformation("[{Desc}] Request URL: {Url}", description, safeUrl);
+
+        if (request.Headers.Any())
+        {
+            _logger.LogInformation("[{Desc}] Request headers: {Headers}", description,
+                string.Join("; ", request.Headers.Select(h => $"{h.Key}: {string.Join(", ", h.Value)}")));
+        }
+
+        response.EnsureSuccessStatusCode();
+
+        var content = await response.Content.ReadAsStringAsync();
+        _logger.LogInformation("[{Desc}] Response ({Status}): {Body}", description,
+            (int)response.StatusCode, content);
+
+        return content;
     }
 
     public async Task<AddressResult?> GeocodeByTextAsync(string text, double? llLon = null, double? llLat = null)
@@ -246,10 +311,7 @@ public class GeocodingService : IGeocodingService
             if (llLon.HasValue && llLat.HasValue)
                 url += $"&ll={llLon.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)},{llLat.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)}&spn=0.5,0.5&rspn=1";
 
-            var response = await _httpClient.GetAsync(url);
-            response.EnsureSuccessStatusCode();
-
-            var content = await response.Content.ReadAsStringAsync();
+            var content = await CallGeocoderWithLoggingAsync(url, "Geocode by text");
             var geoResponse = JsonSerializer.Deserialize<YandexGeocoderResponse>(content, JsonOptions);
 
             var member = geoResponse?.Response?.GeoObjectCollection?.FeatureMember?.FirstOrDefault();
@@ -342,6 +404,18 @@ public class GeocodingService : IGeocodingService
     {
         public GeoObjectMetaDataProperty? MetaDataProperty { get; set; }
         public GeoPoint? Point { get; set; }
+        public BoundedBy? BoundedBy { get; set; }
+    }
+
+    private class BoundedBy
+    {
+        public Envelope? Envelope { get; set; }
+    }
+
+    private class Envelope
+    {
+        public string? LowerCorner { get; set; }
+        public string? UpperCorner { get; set; }
     }
 
     private class GeoObjectMetaDataProperty

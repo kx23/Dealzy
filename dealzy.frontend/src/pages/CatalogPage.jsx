@@ -23,9 +23,16 @@ const KIND_LABELS = {
     Coworking: 'Коворкинг',
 };
 
-const KIND_OPTIONS = [
+const KIND_OPTIONS_BY_DEAL = {
+    '0': ['Apartment', 'Room', 'House', 'LandPlot', 'Garage'],
+    '1': ['Apartment', 'Room', 'House', 'Garage'],
+    '2': ['Apartment', 'Room', 'House'],
+    '3': ['Office', 'Coworking', 'Retail', 'Warehouse'],
+};
+
+const getKindOptions = (dealType) => [
     { value: '', label: 'Все типы' },
-    ...Object.entries(KIND_LABELS).map(([value, label]) => ({ value, label })),
+    ...(KIND_OPTIONS_BY_DEAL[dealType] ?? []).map(value => ({ value, label: KIND_LABELS[value] })),
 ];
 
 const DEAL_OPTIONS = [
@@ -214,7 +221,7 @@ const CitySearch = ({ value, coords, onChange }) => {
             </span>
             <input
                 className="city-search__input"
-                placeholder="Адрес, ЖК или город..."
+                placeholder="Город"
                 value={query}
                 onChange={handleInput}
                 onFocus={() => suggestions.length > 0 && setOpen(true)}
@@ -231,50 +238,6 @@ const CitySearch = ({ value, coords, onChange }) => {
                     ))}
                 </ul>
             )}
-        </div>
-    );
-};
-
-// --- Districts popup ---
-const DistrictsPopup = ({ city, selected, onApply, onClose }) => {
-    const [districts, setDistricts] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [checked, setChecked] = useState(new Set(selected));
-
-    useEffect(() => {
-        if (!city) return;
-        setLoading(true);
-        axios.get('/api/geocoding/districts', { params: { cityName: city.name, lon: city.lon, lat: city.lat } })
-            .then(r => setDistricts(r.data ?? []))
-            .finally(() => setLoading(false));
-    }, [city]);
-
-    const toggle = (d) => setChecked(prev => { const s = new Set(prev); s.has(d) ? s.delete(d) : s.add(d); return s; });
-
-    return (
-        <div className="popup-overlay" onClick={onClose}>
-            <div className="popup-modal" onClick={e => e.stopPropagation()}>
-                <button className="popup-close" onClick={onClose}>×</button>
-                <h3 className="popup-title">Районы</h3>
-                {loading ? (
-                    <div className="popup-loading">Загрузка...</div>
-                ) : districts.length === 0 ? (
-                    <div className="popup-loading">Районы не найдены</div>
-                ) : (
-                    <div className="districts-grid">
-                        {districts.map(d => (
-                            <label key={d} className="district-item">
-                                <input type="checkbox" checked={checked.has(d)} onChange={() => toggle(d)} />
-                                {d}
-                            </label>
-                        ))}
-                    </div>
-                )}
-                <div className="popup-footer">
-                    <button className="popup-btn-reset" onClick={() => setChecked(new Set())}>Сбросить</button>
-                    <button className="popup-btn-apply" onClick={() => onApply([...checked])}>Показать объекты</button>
-                </div>
-            </div>
         </div>
     );
 };
@@ -330,14 +293,36 @@ const PriceDropdown = ({ priceFrom, priceTo, onChange }) => {
 };
 
 // --- Extra filters popup ---
-const ExtraFiltersPopup = ({ dealType, kind, filters, onChange, onClose }) => {
+const ExtraFiltersPopup = ({ dealType, kind, filters, priceFrom, priceTo, rooms, withPhoto, noAgent, onApply, onClose }) => {
     const [local, setLocal] = useState({ ...filters });
+    const [priceFromLocal, setPriceFromLocal] = useState(priceFrom);
+    const [priceToLocal, setPriceToLocal] = useState(priceTo);
+    const [roomsLocal, setRoomsLocal] = useState(rooms);
+    const [withPhotoLocal, setWithPhotoLocal] = useState(withPhoto);
+    const [noAgentLocal, setNoAgentLocal] = useState(noAgent);
     const config = EXTRA_FILTERS[kind] ?? {};
     const isRent = dealType === '1' || dealType === '2';
 
     const set = (key, val) => setLocal(p => ({ ...p, [key]: val }));
-    const apply = () => { onChange(local); onClose(); };
-    const reset = () => setLocal({});
+    const apply = () => {
+        onApply({
+            extraFilters: local,
+            priceFrom: priceFromLocal,
+            priceTo: priceToLocal,
+            rooms: roomsLocal,
+            withPhoto: withPhotoLocal,
+            noAgent: noAgentLocal,
+        });
+        onClose();
+    };
+    const reset = () => {
+        setLocal({});
+        setPriceFromLocal('');
+        setPriceToLocal('');
+        setRoomsLocal('');
+        setWithPhotoLocal(false);
+        setNoAgentLocal(false);
+    };
 
     return (
         <div className="popup-overlay" onClick={onClose}>
@@ -345,6 +330,28 @@ const ExtraFiltersPopup = ({ dealType, kind, filters, onChange, onClose }) => {
                 <button className="popup-close" onClick={onClose}>×</button>
                 <h3 className="popup-title">Ещё фильтры</h3>
                 <div className="extra-filters-body">
+
+                    <div className="extra-filter-row">
+                        <span className="extra-filter-row__label">Цена, ₽</span>
+                        <div className="extra-filter-row__chips extra-filter-row__chips--inputs">
+                            <input type="number" className="extra-input" placeholder="от" value={priceFromLocal ?? ''} onChange={e => setPriceFromLocal(e.target.value)} />
+                            <span>—</span>
+                            <input type="number" className="extra-input" placeholder="до" value={priceToLocal ?? ''} onChange={e => setPriceToLocal(e.target.value)} />
+                        </div>
+                    </div>
+
+                    <div className="extra-filter-row">
+                        <span className="extra-filter-row__label">Комнат</span>
+                        <div className="extra-filter-row__chips">
+                            {ROOMS_OPTIONS.filter(o => o.value !== '').map(o => (
+                                <button
+                                    key={o.value}
+                                    className={`extra-chip${roomsLocal === o.value ? ' extra-chip--active' : ''}`}
+                                    onClick={() => setRoomsLocal(roomsLocal === o.value ? '' : o.value)}
+                                >{o.label}</button>
+                            ))}
+                        </div>
+                    </div>
 
                     {(config.base ?? []).map(f => (
                         <div key={f.key} className="extra-filter-row">
@@ -455,6 +462,20 @@ const ExtraFiltersPopup = ({ dealType, kind, filters, onChange, onClose }) => {
                         </div>
                     </div>
 
+                    <div className="extra-filter-row">
+                        <span className="extra-filter-row__label">Прочее</span>
+                        <div className="extra-filter-row__chips">
+                            <label className="extra-check">
+                                <input type="checkbox" checked={withPhotoLocal} onChange={e => setWithPhotoLocal(e.target.checked)} />
+                                С фото
+                            </label>
+                            <label className="extra-check">
+                                <input type="checkbox" checked={noAgentLocal} onChange={e => setNoAgentLocal(e.target.checked)} />
+                                Без посредников
+                            </label>
+                        </div>
+                    </div>
+
                 </div>
                 <div className="popup-footer">
                     <button className="popup-btn-reset" onClick={reset}>Сбросить фильтры</button>
@@ -474,8 +495,6 @@ const CatalogPage = () => {
     const [view, setView] = useState('grid');
     const [sort, setSort] = useState('newest');
     const [city, setCity] = useState(null);
-    const [showDistricts, setShowDistricts] = useState(false);
-    const [selectedDistricts, setSelectedDistricts] = useState([]);
     const [showExtraFilters, setShowExtraFilters] = useState(false);
     const [extraFilters, setExtraFilters] = useState({});
 
@@ -490,6 +509,14 @@ const CatalogPage = () => {
     const setParam = (key, value) => {
         const next = new URLSearchParams(searchParams);
         if (value) next.set(key, value); else next.delete(key);
+        setSearchParams(next);
+    };
+
+    const setParams = (updates) => {
+        const next = new URLSearchParams(searchParams);
+        Object.entries(updates).forEach(([key, value]) => {
+            if (value) next.set(key, value); else next.delete(key);
+        });
         setSearchParams(next);
     };
 
@@ -528,20 +555,16 @@ const CatalogPage = () => {
             <div className="catalog-filter-bar">
                 <div className="catalog-filter-bar__inner">
 
-                    <div className="city-search-wrap">
-                        <CitySearch value={city} onChange={setCity} />
-                        <button
-                            className={`filter-chip filter-chip--district${!city ? ' filter-chip--disabled' : ''}${selectedDistricts.length > 0 ? ' filter-chip--active' : ''}`}
-                            onClick={() => city && setShowDistricts(true)}
-                        >
-                            Районы {selectedDistricts.length > 0 && `(${selectedDistricts.length})`}
-                        </button>
-                    </div>
+                    <CitySearch value={city} onChange={setCity} />
 
                     <select
                         className="catalog-filter__select catalog-filter__deal"
                         value={dealType}
-                        onChange={e => setParam('dealType', e.target.value)}
+                        onChange={e => {
+                            const newDeal = e.target.value;
+                            const allowedKinds = KIND_OPTIONS_BY_DEAL[newDeal] ?? [];
+                            setParams({ dealType: newDeal, kind: allowedKinds.includes(kind) ? kind : '' });
+                        }}
                     >
                         {DEAL_OPTIONS.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
                     </select>
@@ -551,13 +574,13 @@ const CatalogPage = () => {
                         value={kind}
                         onChange={e => setParam('kind', e.target.value)}
                     >
-                        {KIND_OPTIONS.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
+                        {getKindOptions(dealType).map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
                     </select>
 
                     <PriceDropdown
                         priceFrom={priceFrom}
                         priceTo={priceTo}
-                        onChange={(f, t) => { setParam('priceFrom', f); setParam('priceTo', t); }}
+                        onChange={(f, t) => setParams({ priceFrom: f, priceTo: t })}
                     />
 
                     <select
@@ -567,17 +590,6 @@ const CatalogPage = () => {
                     >
                         {ROOMS_OPTIONS.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
                     </select>
-
-                    <div className="catalog-filter__checks">
-                        <label className="catalog-filter__check-label">
-                            <input type="checkbox" checked={withPhoto} onChange={e => setParam('withPhoto', e.target.checked ? 'true' : '')} />
-                            С фото
-                        </label>
-                        <label className="catalog-filter__check-label">
-                            <input type="checkbox" checked={noAgent} onChange={e => setParam('noAgent', e.target.checked ? 'true' : '')} />
-                            Без посредников
-                        </label>
-                    </div>
 
                     <button
                         className={`filter-chip filter-chip--more${extraCount > 0 ? ' filter-chip--active' : ''}`}
@@ -635,21 +647,26 @@ const CatalogPage = () => {
                 </div>
             </div>
 
-            {showDistricts && city && (
-                <DistrictsPopup
-                    city={city}
-                    selected={selectedDistricts}
-                    onApply={(d) => { setSelectedDistricts(d); setShowDistricts(false); }}
-                    onClose={() => setShowDistricts(false)}
-                />
-            )}
-
             {showExtraFilters && (
                 <ExtraFiltersPopup
                     dealType={dealType}
                     kind={kind}
                     filters={extraFilters}
-                    onChange={setExtraFilters}
+                    priceFrom={priceFrom}
+                    priceTo={priceTo}
+                    rooms={rooms}
+                    withPhoto={withPhoto}
+                    noAgent={noAgent}
+                    onApply={(result) => {
+                        setExtraFilters(result.extraFilters);
+                        setParams({
+                            priceFrom: result.priceFrom,
+                            priceTo: result.priceTo,
+                            rooms: result.rooms,
+                            withPhoto: result.withPhoto ? 'true' : '',
+                            noAgent: result.noAgent ? 'true' : '',
+                        });
+                    }}
                     onClose={() => setShowExtraFilters(false)}
                 />
             )}
