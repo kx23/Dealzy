@@ -26,6 +26,10 @@ public class CreateAdBaseDtoConverter : JsonConverter<CreateAdBaseDto>
             "retail"    => new CreateRetailAdDto(),
             "warehouse" => new CreateWarehouseAdDto(),
             "coworking" => new CreateCoworkingAdDto(),
+            "housePart" => new CreateHousePartAdDto(),
+            "townhouse" => new CreateTownhouseAdDto(),
+            "bed"       => new CreateBedAdDto(),
+            "business"  => new CreateBusinessAdDto(),
             _ => throw new JsonSerializationException($"Unknown propertyKind: '{kind}'")
         };
 

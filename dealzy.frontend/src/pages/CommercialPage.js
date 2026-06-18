@@ -7,19 +7,19 @@ const categories = [
     {
         label: 'Аренда',
         sub: [
-            { label: 'Офис', to: '/catalog?type=commercial-rent&kind=office' },
-            { label: 'Коворкинг', to: '/catalog?type=commercial-rent&kind=coworking' },
-            { label: 'Торговая площадь', to: '/catalog?type=commercial-rent&kind=retail' },
-            { label: 'Складское помещение', to: '/catalog?type=commercial-rent&kind=warehouse' },
+            { label: 'Офис', to: '/catalog?dealType=3&kind=Office' },
+            { label: 'Коворкинг', to: '/catalog?dealType=3&kind=Coworking' },
+            { label: 'Торговая площадь', to: '/catalog?dealType=3&kind=Retail' },
+            { label: 'Складское помещение', to: '/catalog?dealType=3&kind=Warehouse' },
         ],
     },
     {
         label: 'Продажа',
         sub: [
-            { label: 'Офис', to: '/catalog?type=commercial-buy&kind=office' },
-            { label: 'Торговая площадь', to: '/catalog?type=commercial-buy&kind=retail' },
-            { label: 'Складское помещение', to: '/catalog?type=commercial-buy&kind=warehouse' },
-            { label: 'Бизнес', to: '/catalog?type=commercial-buy&kind=business' },
+            { label: 'Офис', to: '/catalog?dealType=4&kind=Office' },
+            { label: 'Торговая площадь', to: '/catalog?dealType=4&kind=Retail' },
+            { label: 'Складское помещение', to: '/catalog?dealType=4&kind=Warehouse' },
+            { label: 'Бизнес', to: '/catalog?dealType=4&kind=Business' },
         ],
     },
 ];

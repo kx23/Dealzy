@@ -11,16 +11,16 @@ const categories = [
     {
         label: 'Часть квартиры',
         sub: [
-            { label: 'Комната', to: '/catalog?type=rent&kind=room' },
-            { label: 'Койко-место', to: '/catalog?type=rent&kind=bed' },
+            { label: 'Комната', to: '/catalog?dealType=1&kind=Room' },
+            { label: 'Койко-место', to: '/catalog?dealType=1&kind=Bed' },
         ],
     },
     {
         label: 'Дом',
         sub: [
-            { label: 'Дом, дача', to: '/catalog?type=rent&kind=house' },
-            { label: 'Часть дома', to: '/catalog?type=rent&kind=house-part' },
-            { label: 'Таунхаус', to: '/catalog?type=rent&kind=townhouse' },
+            { label: 'Дом, дача', to: '/catalog?dealType=1&kind=House' },
+            { label: 'Часть дома', to: '/catalog?dealType=1&kind=HousePart' },
+            { label: 'Таунхаус', to: '/catalog?dealType=1&kind=Townhouse' },
         ],
     },
     {

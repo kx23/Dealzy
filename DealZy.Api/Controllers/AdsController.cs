@@ -22,7 +22,7 @@ public class AdsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<AdResponseDto>>> GetAds([FromQuery] DealType[]? dealType)
+    public async Task<ActionResult<IEnumerable<AdResponseDto>>> GetAds([FromQuery] DealType[]? dealType, [FromQuery] string[]? propertyKind)
     {
         var query = _context.Ads.Include(a => a.Photos)
             .Where(a => a.Status == AdStatus.Published)
@@ -32,6 +32,10 @@ public class AdsController : ControllerBase
             query = query.Where(a => dealType.Contains(a.DealType));
 
         var ads = await query.ToListAsync();
+
+        if (propertyKind != null && propertyKind.Length > 0)
+            ads = ads.Where(a => propertyKind.Contains(a.GetType().Name.Replace("Ad", ""), StringComparer.OrdinalIgnoreCase)).ToList();
+
         return Ok(ads.Select(a => new AdResponseDto
         {
             Id           = a.Id,
@@ -95,6 +99,10 @@ public class AdsController : ControllerBase
             CreateRetailAdDto    d => await SaveAd(MapRetail(d),    d),
             CreateWarehouseAdDto d => await SaveAd(MapWarehouse(d), d),
             CreateCoworkingAdDto d => await SaveAd(MapCoworking(d), d),
+            CreateHousePartAdDto d => await SaveAd(MapHousePart(d), d),
+            CreateTownhouseAdDto d => await SaveAd(MapTownhouse(d), d),
+            CreateBedAdDto       d => await SaveAd(MapBed(d),       d),
+            CreateBusinessAdDto  d => await SaveAd(MapBusiness(d),  d),
             _                      => BadRequest("Unknown property kind.")
         };
     }
@@ -309,6 +317,87 @@ public class AdsController : ControllerBase
         return ad;
     }
 
+    private static HousePartAd MapHousePart(CreateHousePartAdDto dto)
+    {
+        var ad = new HousePartAd
+        {
+            HouseArea           = dto.HouseArea,
+            LandArea            = dto.LandArea,
+            Floors              = dto.Floors,
+            Rooms               = dto.Rooms,
+            Bedrooms            = dto.Bedrooms,
+            ConstructionYear    = dto.ConstructionYear,
+            Material            = dto.Material,
+            HeatingType         = dto.HeatingType,
+            BathroomInHouse     = dto.BathroomInHouse,
+            OutdoorBathroom     = dto.OutdoorBathroom,
+            HasSeparateEntrance = dto.HasSeparateEntrance,
+            TotalShares         = dto.TotalShares,
+            HasGarage           = dto.HasGarage
+        };
+        MapBase(ad, dto);
+        return ad;
+    }
+
+    private static TownhouseAd MapTownhouse(CreateTownhouseAdDto dto)
+    {
+        var ad = new TownhouseAd
+        {
+            HouseArea        = dto.HouseArea,
+            LandArea         = dto.LandArea,
+            Floors           = dto.Floors,
+            Rooms            = dto.Rooms,
+            Bedrooms         = dto.Bedrooms,
+            ConstructionYear = dto.ConstructionYear,
+            Material         = dto.Material,
+            HeatingType      = dto.HeatingType,
+            BathroomInHouse  = dto.BathroomInHouse,
+            HasGarage        = dto.HasGarage,
+            HasPool          = dto.HasPool,
+            SectionsTotal    = dto.SectionsTotal,
+            IsEndSection     = dto.IsEndSection
+        };
+        MapBase(ad, dto);
+        return ad;
+    }
+
+    private static BedAd MapBed(CreateBedAdDto dto)
+    {
+        var ad = new BedAd
+        {
+            ApartmentFloor   = dto.ApartmentFloor,
+            BuildingFloors   = dto.BuildingFloors,
+            BedsInRoom       = dto.BedsInRoom,
+            BathroomType     = dto.BathroomType,
+            RenovationType   = dto.RenovationType,
+            BuildingType     = dto.BuildingType,
+            ElevatorType     = dto.ElevatorType,
+            ConstructionYear = dto.ConstructionYear
+        };
+        MapBase(ad, dto);
+        return ad;
+    }
+
+    private static BusinessAd MapBusiness(CreateBusinessAdDto dto)
+    {
+        var ad = new BusinessAd
+        {
+            FloorMin          = dto.FloorMin,
+            FloorMax          = dto.FloorMax,
+            HasParking        = dto.HasParking,
+            ConstructionYear  = dto.ConstructionYear,
+            BuildingFloors    = dto.BuildingFloors,
+            Infrastructure    = dto.Infrastructure,
+            ContractType      = dto.ContractType,
+            CommissionType    = dto.CommissionType,
+            FurnitureType     = dto.FurnitureType,
+            Condition         = dto.Condition,
+            PropertyOwnership = dto.PropertyOwnership
+        };
+        MapBase(ad, dto);
+        return ad;
+    }
+
     // --- address upsert + save ---
 
     private async Task<IActionResult> SaveAd(RealEstateAd ad, CreateAdBaseDto dto)
@@ -365,6 +454,10 @@ public class AdsController : ControllerBase
             "retail"    => new RetailAd(),
             "warehouse" => new WarehouseAd(),
             "coworking" => new CoworkingAd(),
+            "housepart" => new HousePartAd(),
+            "townhouse" => new TownhouseAd(),
+            "bed"       => new BedAd(),
+            "business"  => new BusinessAd(),
             _           => null
         };
 

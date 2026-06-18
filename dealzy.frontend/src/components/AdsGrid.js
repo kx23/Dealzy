@@ -28,8 +28,8 @@ const AdsGrid = ({ dealTypes, title }) => {
                         <div className="ads-grid__list">
                             {ads.map(ad => (
                                 <Link key={ad.id} to={`/ad/${ad.id}`} className="ad-card">
-                                    {ad.imageUrl
-                                        ? <img className="ad-card__photo" src={ad.imageUrl} alt={ad.title} />
+                                    {ad.mainPhotoUrl
+                                        ? <img className="ad-card__photo" src={ad.mainPhotoUrl} alt={ad.title} />
                                         : <div className="ad-card__photo--placeholder">Нет фото</div>
                                     }
                                     <div className="ad-card__body">

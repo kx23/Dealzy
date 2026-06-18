@@ -7,18 +7,18 @@ const categories = [
     {
         label: 'Квартира',
         sub: [
-            { label: 'Вторичный рынок', to: '/catalog?type=buy&kind=resale-apartment' },
-            { label: 'Новостройка', to: '/catalog?type=buy&kind=new-apartment' },
+            { label: 'Вторичный рынок', to: '/catalog?dealType=0&kind=Apartment&objectType=2' },
+            { label: 'Новостройка', to: '/catalog?dealType=0&kind=Apartment&objectType=1' },
         ],
     },
     { label: 'Комната', sub: [] },
     {
         label: 'Дом',
         sub: [
-            { label: 'Дом, дача', to: '/catalog?type=buy&kind=house' },
-            { label: 'Часть дома', to: '/catalog?type=buy&kind=house-part' },
-            { label: 'Таунхаус', to: '/catalog?type=buy&kind=townhouse' },
-            { label: 'Участок', to: '/catalog?type=buy&kind=land' },
+            { label: 'Дом, дача', to: '/catalog?dealType=0&kind=House' },
+            { label: 'Часть дома', to: '/catalog?dealType=0&kind=HousePart' },
+            { label: 'Таунхаус', to: '/catalog?dealType=0&kind=Townhouse' },
+            { label: 'Участок', to: '/catalog?dealType=0&kind=LandPlot' },
         ],
     },
     { label: 'Гараж', sub: [] },

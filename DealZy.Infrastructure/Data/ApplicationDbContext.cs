@@ -26,6 +26,9 @@ public class ApplicationDbContext : IdentityDbContext<User>
     public DbSet<LandPlotAd> LandPlotAds { get; set; }
     public DbSet<GarageAd> GarageAds { get; set; }
     public DbSet<RoomAd> RoomAds { get; set; }
+    public DbSet<HousePartAd> HousePartAds { get; set; }
+    public DbSet<TownhouseAd> TownhouseAds { get; set; }
+    public DbSet<BedAd> BedAds { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

@@ -15,19 +15,24 @@ const KIND_LABELS = {
     Apartment: 'Квартира',
     Room: 'Комната',
     House: 'Дом, дача',
+    HousePart: 'Часть дома',
+    Townhouse: 'Таунхаус',
+    Bed: 'Койко-место',
     Garage: 'Гараж',
     LandPlot: 'Участок',
     Office: 'Офис',
     Retail: 'Торговая площадь',
     Warehouse: 'Склад',
     Coworking: 'Коворкинг',
+    Business: 'Бизнес',
 };
 
 const KIND_OPTIONS_BY_DEAL = {
-    '0': ['Apartment', 'Room', 'House', 'LandPlot', 'Garage'],
-    '1': ['Apartment', 'Room', 'House', 'Garage'],
-    '2': ['Apartment', 'Room', 'House'],
+    '0': ['Apartment', 'Room', 'House', 'HousePart', 'Townhouse', 'LandPlot', 'Garage'],
+    '1': ['Apartment', 'Room', 'Bed', 'House', 'HousePart', 'Townhouse', 'Garage'],
+    '2': ['Apartment', 'Room', 'House', 'Bed'],
     '3': ['Office', 'Coworking', 'Retail', 'Warehouse'],
+    '4': ['Office', 'Retail', 'Warehouse', 'Business'],
 };
 
 const getKindOptions = (dealType) => [
@@ -39,7 +44,8 @@ const DEAL_OPTIONS = [
     { value: '0', label: 'Купить' },
     { value: '1', label: 'Снять' },
     { value: '2', label: 'Посуточно' },
-    { value: '3', label: 'Коммерческая' },
+    { value: '3', label: 'Коммерческая аренда' },
+    { value: '4', label: 'Коммерческая продажа' },
 ];
 
 const ROOMS_OPTIONS = [

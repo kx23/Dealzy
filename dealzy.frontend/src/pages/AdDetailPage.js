@@ -3,15 +3,6 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import './AdDetailPage.css';
 
-// Mock photos for gallery demo
-const MOCK_PHOTOS = [
-    'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1000&q=80',
-    'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1000&q=80',
-    'https://images.unsplash.com/photo-1484154218962-a197022b5858?w=1000&q=80',
-    'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1000&q=80',
-    'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=1000&q=80',
-];
-
 const ChevronLeft = () => (
     <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6" /></svg>
 );
@@ -41,7 +32,7 @@ const AdDetailPage = () => {
     const [error, setError] = useState(null);
     const [activePhoto, setActivePhoto] = useState(0);
 
-    const photos = ad?.photos?.length ? ad.photos : (ad?.imageUrl ? [ad.imageUrl] : MOCK_PHOTOS);
+    const photos = ad?.photoUrls?.length ? ad.photoUrls : [];
 
     useEffect(() => {
         const fetchAd = async () => {
