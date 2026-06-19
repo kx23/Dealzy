@@ -24,7 +24,10 @@ public class AdsController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<IEnumerable<AdResponseDto>>> GetAds([FromQuery] DealType[]? dealType, [FromQuery] string[]? propertyKind)
     {
-        var query = _context.Ads.Include(a => a.Photos)
+        var query = _context.RealEstateAds
+            .Include(a => a.Photos)
+            .Include(a => a.Address)
+            .Include(a => a.User)
             .Where(a => a.Status == AdStatus.Published)
             .AsQueryable();
 
@@ -36,16 +39,61 @@ public class AdsController : ControllerBase
         if (propertyKind != null && propertyKind.Length > 0)
             ads = ads.Where(a => propertyKind.Contains(a.GetType().Name.Replace("Ad", ""), StringComparer.OrdinalIgnoreCase)).ToList();
 
-        return Ok(ads.Select(a => new AdResponseDto
+        return Ok(ads.Select(MapToResponseDto));
+    }
+
+    private static AdResponseDto MapToResponseDto(RealEstateAd a)
+    {
+        var dto = new AdResponseDto
         {
-            Id           = a.Id,
-            Title        = a.Title,
-            Description  = a.Description,
-            Price        = a.Price,
-            MainPhotoUrl = a.Photos.OrderBy(p => p.Order).Select(p => p.Url).FirstOrDefault(),
-            DealType     = a.DealType,
-            PropertyKind = a.GetType().Name.Replace("Ad", "")
-        }));
+            Id             = a.Id,
+            Title          = a.Title,
+            Description    = a.Description,
+            Price          = a.Price,
+            PhotoUrls      = a.Photos.OrderBy(p => p.Order).Select(p => p.Url).ToList(),
+            DealType       = a.DealType,
+            PropertyKind   = a.GetType().Name.Replace("Ad", ""),
+            Area           = a.Area,
+            SellerType     = a.SellerType,
+            City           = a.Address?.City,
+            AddressDisplay = a.Address?.DisplayName,
+            AuthorName     = a.User?.ContactName ?? a.User?.UserName,
+        };
+
+        switch (a)
+        {
+            case ApartmentAd ap:
+                dto.Rooms          = ap.Rooms;
+                dto.Floor          = ap.ApartmentFloor;
+                dto.BuildingFloors = ap.BuildingFloors;
+                break;
+            case HouseAd h:
+                dto.Rooms          = h.Rooms;
+                dto.BuildingFloors = h.Floors;
+                break;
+            case HousePartAd hp:
+                dto.Rooms          = hp.Rooms;
+                dto.BuildingFloors = hp.Floors;
+                break;
+            case TownhouseAd th:
+                dto.Rooms          = th.Rooms;
+                dto.BuildingFloors = th.Floors;
+                break;
+            case RoomAd r:
+                dto.Floor          = r.ApartmentFloor;
+                dto.BuildingFloors = r.BuildingFloors;
+                break;
+            case BedAd b:
+                dto.Floor          = b.ApartmentFloor;
+                dto.BuildingFloors = b.BuildingFloors;
+                break;
+            case CommercialAd c:
+                dto.Floor          = c.FloorMin;
+                dto.BuildingFloors = c.BuildingFloors;
+                break;
+        }
+
+        return dto;
     }
 
     [HttpGet("{id}")]

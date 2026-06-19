@@ -493,7 +493,7 @@
 }
 
 .catalog-grid--grid { grid-template-columns: repeat(4, 1fr); }
-.catalog-grid--list { grid-template-columns: repeat(2, 1fr); }
+.catalog-grid--list { grid-template-columns: 1fr; }
 
 .catalog-empty,
 .catalog-loading {

@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import axios from 'axios';
 import './CatalogPage.css';
+import AdCard from '../components/AdCard';
 
 const DEAL_TYPE_MAP = {
     '0': { label: 'Покупка', to: '/buy' },
@@ -637,17 +638,7 @@ const CatalogPage = () => {
                         <div className="catalog-empty">Объявлений не найдено</div>
                     ) : (
                         displayedAds.map(ad => (
-                            <Link key={ad.id} to={`/ad/${ad.id}`} className="ad-card">
-                                {ad.imageUrl
-                                    ? <img className="ad-card__photo" src={ad.imageUrl} alt={ad.title} />
-                                    : <div className="ad-card__photo--placeholder">Нет фото</div>
-                                }
-                                <div className="ad-card__body">
-                                    <span className="ad-card__kind">{KIND_LABELS[ad.propertyKind] ?? ad.propertyKind}</span>
-                                    <span className="ad-card__price">{ad.price.toLocaleString('ru-RU')} ₽</span>
-                                    <span className="ad-card__title">{ad.title}</span>
-                                </div>
-                            </Link>
+                            <AdCard key={ad.id} ad={ad} view={view} />
                         ))
                     )}
                 </div>

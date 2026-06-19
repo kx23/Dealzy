@@ -19,5 +19,10 @@ public class AdConfiguration : IEntityTypeConfiguration<Ad>
 
         builder.Property(a => a.DealType)
             .HasConversion<string>();
+
+        builder.HasOne(a => a.User)
+            .WithMany()
+            .HasForeignKey(a => a.UserId)
+            .OnDelete(DeleteBehavior.SetNull);
     }
 }

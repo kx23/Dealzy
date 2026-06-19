@@ -22,4 +22,7 @@ public class Ad
     public AdStatus Status { get; set; } = AdStatus.Draft;
 
     public ICollection<AdPhoto> Photos { get; set; } = new List<AdPhoto>();
+
+    public string? UserId { get; set; }
+    public User? User { get; set; }
 }
